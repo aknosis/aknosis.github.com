@@ -1,0 +1,11 @@
+--- 
+layout: post
+title: New Host
+wordpress_id: 71
+wordpress_url: http://www.aknosis.com/2009/03/11/new-host/
+date: 2009-03-11 23:01:10 -07:00
+comments: true
+---
+Everything has been successfully migrated to my new server @ slicehost. I can already see the speed improvements on the backend. Hopefully they show up on the front end as well!
+
+-Ak

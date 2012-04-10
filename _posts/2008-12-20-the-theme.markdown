@@ -1,0 +1,8 @@
+--- 
+layout: post
+title: The theme
+wordpress_id: 6
+wordpress_url: http://www.aknosis.com/2008/12/20/the-theme/
+date: 2008-12-20 00:56:33 -07:00
+---
+I really like this theme. However it seems it isn't properly updated for 2.7 yet so forgive any issues that arise because of it. Hopefully it will be updated by someone. I wish I could tackle it but my lack of time to devote to a project I know not much about doesn't help any.
