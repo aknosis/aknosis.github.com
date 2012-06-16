@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[aknosis.com]]></title>
-  <link href="http://aknosis.com/atom.xml" rel="self"/>
-  <link href="http://aknosis.com/"/>
-  <updated>2012-06-16T01:01:39-07:00</updated>
-  <id>http://aknosis.com/</id>
+  <link href="http://aknosis.github.com/atom.xml" rel="self"/>
+  <link href="http://aknosis.github.com/"/>
+  <updated>2012-06-16T01:29:58-07:00</updated>
+  <id>http://aknosis.github.com/</id>
   <author>
     <name><![CDATA[Paul 'aknosis' Giberson]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[PHP Basics: php's list()]]></title>
-    <link href="http://aknosis.com/2012/06/14/php-basics-phps-list/"/>
+    <link href="http://aknosis.github.com/2012/06/14/php-basics-phps-list/"/>
     <updated>2012-06-14T19:33:00-07:00</updated>
-    <id>http://aknosis.com/2012/06/14/php-basics-phps-list</id>
+    <id>http://aknosis.github.com/2012/06/14/php-basics-phps-list</id>
     <content type="html"><![CDATA[<p>If you haven&#8217;t used <a href="http://php.net/manual/en/function.list.php">list()</a> before, consider it a dead simple way to map from a numerically indexed
 array to any number of variables.</p>
 
@@ -91,9 +91,9 @@ array to any number of variables.</p>
   
   <entry>
     <title type="html"><![CDATA[Quick Tip: rawurlencode in Twig]]></title>
-    <link href="http://aknosis.com/2012/04/10/quick-tip-rawurlencode-in-twig/"/>
+    <link href="http://aknosis.github.com/2012/04/10/quick-tip-rawurlencode-in-twig/"/>
     <updated>2012-04-10T06:04:00-07:00</updated>
-    <id>http://aknosis.com/2012/04/10/quick-tip-rawurlencode-in-twig</id>
+    <id>http://aknosis.github.com/2012/04/10/quick-tip-rawurlencode-in-twig</id>
     <content type="html"><![CDATA[<p>I&#8217;ve been working on modifying listserv digest emails at work and porting them to Twig templates. The fun part was trying to create mailto: links that mimicked hitting reply (auto populating the subject with RE: [post title]).</p>
 
 <p>The problem with just jamming the title in to the ?subject= param is all sorts of fun like spacing and special characters. Turns out that you can use a Twig filter to urlencode a variable: <a href="http://twig.sensiolabs.org/doc/filters/url_encode.html">Twig - urlencode filter</a></p>
@@ -124,9 +124,9 @@ array to any number of variables.</p>
   
   <entry>
     <title type="html"><![CDATA[Quicktip: Read from stdin in PHP]]></title>
-    <link href="http://aknosis.com/2012/01/18/quicktip-read-from-stdin-in-php/"/>
+    <link href="http://aknosis.github.com/2012/01/18/quicktip-read-from-stdin-in-php/"/>
     <updated>2012-01-18T17:06:36-07:00</updated>
-    <id>http://aknosis.com/2012/01/18/quicktip-read-from-stdin-in-php</id>
+    <id>http://aknosis.github.com/2012/01/18/quicktip-read-from-stdin-in-php</id>
     <content type="html"><![CDATA[<div><script src='https://gist.github.com/1636629.js?file='></script>
 <noscript><pre><code>&lt;?php
 /**
@@ -151,9 +151,9 @@ function prompt($msg){
   
   <entry>
     <title type="html"><![CDATA[Quicktip: Add conditionals in a WHERE clause]]></title>
-    <link href="http://aknosis.com/2011/10/28/quicktip-add-conditionals-in-a-sql-where-clause/"/>
+    <link href="http://aknosis.github.com/2011/10/28/quicktip-add-conditionals-in-a-sql-where-clause/"/>
     <updated>2011-10-28T14:57:24-07:00</updated>
-    <id>http://aknosis.com/2011/10/28/quicktip-add-conditionals-in-a-sql-where-clause</id>
+    <id>http://aknosis.github.com/2011/10/28/quicktip-add-conditionals-in-a-sql-where-clause</id>
     <content type="html"><![CDATA[<div><script src='https://gist.github.com/1323675.js?file='></script>
 <noscript><pre><code>-- Example of how to include an if conditional in a where clause
 
@@ -178,9 +178,9 @@ SELECT * FROM table
   
   <entry>
     <title type="html"><![CDATA[GitHub Gist Shortcode Wordpress Plugin Update]]></title>
-    <link href="http://aknosis.com/2011/10/07/github-gist-shortcode-wordpress-plugin-update/"/>
+    <link href="http://aknosis.github.com/2011/10/07/github-gist-shortcode-wordpress-plugin-update/"/>
     <updated>2011-10-07T13:15:00-07:00</updated>
-    <id>http://aknosis.com/2011/10/07/github-gist-shortcode-wordpress-plugin-update</id>
+    <id>http://aknosis.github.com/2011/10/07/github-gist-shortcode-wordpress-plugin-update</id>
     <content type="html"><![CDATA[<p>If you use the GitHub Gist Shortcode Wordpress plugin, which I do, to embed your gists in your blog you&#8217;ll want to update the code to the latests.</p>
 
 <p>I noticed the other day that all requests were getting permanently redirected from http to https. The fix is very minor.</p>
@@ -191,9 +191,9 @@ SELECT * FROM table
   
   <entry>
     <title type="html"><![CDATA[Quicktip: Simple File Based Cache Mechanism in PHP]]></title>
-    <link href="http://aknosis.com/2011/09/02/quicktip-simple-file-based-cache-mechanism-in-php/"/>
+    <link href="http://aknosis.github.com/2011/09/02/quicktip-simple-file-based-cache-mechanism-in-php/"/>
     <updated>2011-09-02T10:32:16-07:00</updated>
-    <id>http://aknosis.com/2011/09/02/quicktip-simple-file-based-cache-mechanism-in-php</id>
+    <id>http://aknosis.github.com/2011/09/02/quicktip-simple-file-based-cache-mechanism-in-php</id>
     <content type="html"><![CDATA[<p>Simple, yet effective enough, this is all the code I used to create caching for a feed retrieval to speed up subsequent requests.</p>
 
 <p>Enjoy!</p>
@@ -221,9 +221,9 @@ function _getFromCache($uniqID,$expireSeconds){
   
   <entry>
     <title type="html"><![CDATA[Using jQuery to rewrite relative urls to absolute urls - [revisited]]]></title>
-    <link href="http://aknosis.com/2011/07/17/using-jquery-to-rewrite-relative-urls-to-absolute-urls-revisited/"/>
+    <link href="http://aknosis.github.com/2011/07/17/using-jquery-to-rewrite-relative-urls-to-absolute-urls-revisited/"/>
     <updated>2011-07-17T00:38:03-07:00</updated>
-    <id>http://aknosis.com/2011/07/17/using-jquery-to-rewrite-relative-urls-to-absolute-urls-revisited</id>
+    <id>http://aknosis.github.com/2011/07/17/using-jquery-to-rewrite-relative-urls-to-absolute-urls-revisited</id>
     <content type="html"><![CDATA[<p>After scanning my site stats and realizing that an old post about <a title="Using jQuery to rewrite all relative urls" href="http://aknosis.com/2009/02/11/using-jquery-to-rewrite-all-relative-urls/">how to rewrite all the relative urls on a page with jQuery</a> was one of my most visited, I decided to review the code and noticed it could be improved. My knowledge of JavaScript and jQuery has improved immensely since that previous post and this revisit is an attempt to improve upon it.</p>
 
 <h4>Problem: Need to change all the relative urls on a page and replace with an absolute url.</h4>
@@ -315,9 +315,9 @@ function _getFromCache($uniqID,$expireSeconds){
   
   <entry>
     <title type="html"><![CDATA[Quicktip: Random string in unix]]></title>
-    <link href="http://aknosis.com/2011/07/12/quicktip-random-string-in-unix/"/>
+    <link href="http://aknosis.github.com/2011/07/12/quicktip-random-string-in-unix/"/>
     <updated>2011-07-12T15:07:11-07:00</updated>
-    <id>http://aknosis.com/2011/07/12/quicktip-random-string-in-unix</id>
+    <id>http://aknosis.github.com/2011/07/12/quicktip-random-string-in-unix</id>
     <content type="html"><![CDATA[<div><script src='https://gist.github.com/1079084.js?file='></script>
 <noscript><pre><code>echo `&lt;/dev/urandom tr -dc A-Za-z0-9 | head -c8`</code></pre></noscript></div>
 
@@ -328,9 +328,9 @@ function _getFromCache($uniqID,$expireSeconds){
   
   <entry>
     <title type="html"><![CDATA[Quicktip: Check if a class constant exists in PHP]]></title>
-    <link href="http://aknosis.com/2011/06/29/check-if-a-class-constant-exists-in-php/"/>
+    <link href="http://aknosis.github.com/2011/06/29/check-if-a-class-constant-exists-in-php/"/>
     <updated>2011-06-29T09:55:19-07:00</updated>
-    <id>http://aknosis.com/2011/06/29/check-if-a-class-constant-exists-in-php</id>
+    <id>http://aknosis.github.com/2011/06/29/check-if-a-class-constant-exists-in-php</id>
     <content type="html"><![CDATA[<div><script src='https://gist.github.com/1054257.js?file='></script>
 <noscript><pre><code>&lt;?php
 if(defined('className::CONSTANT_NAME')){
@@ -346,9 +346,9 @@ if(defined('className::CONSTANT_NAME')){
   
   <entry>
     <title type="html"><![CDATA[jQuery Pluginifier - Plugin Instantiator & Plugin Boilerplate]]></title>
-    <link href="http://aknosis.com/2011/05/11/jquery-pluginifier-jquery-plugin-instantiator-boilerplate/"/>
+    <link href="http://aknosis.github.com/2011/05/11/jquery-pluginifier-jquery-plugin-instantiator-boilerplate/"/>
     <updated>2011-05-11T06:01:58-07:00</updated>
-    <id>http://aknosis.com/2011/05/11/jquery-pluginifier-jquery-plugin-instantiator-boilerplate</id>
+    <id>http://aknosis.github.com/2011/05/11/jquery-pluginifier-jquery-plugin-instantiator-boilerplate</id>
     <content type="html"><![CDATA[<p>After coming across a recent blog post on <a href="http://stefangabos.ro/jquery/jquery-plugin-boilerplate/">jQuery Plugin Boilerplate</a> code it reminded me a few months back when I was looking at the best method for authoring plugins for use at work. After much googling and trial and error I finally came to grips with something and below is the end result.</p>
 
 <p>The code in the <a href="http://stefangabos.ro/jquery/jquery-plugin-boilerplate/">jQuery Plugin Boilerplate</a> blog post is very similar to the <a href="http://docs.jquery.com/Plugins/Authoring">plugin authoring page</a> in the jQuery Documentation. While they are both good resources, I think they favor single plugins and may potentially lead developers down a path of duplicate code. Similar to jQuery UI&#8217;s $.widget what I want to push here is a snippet of code that can transform your code into a &#8220;jQuery Plugin&#8221; (is there a real definition of this somewhere?).</p>
@@ -585,9 +585,9 @@ if(defined('className::CONSTANT_NAME')){
   
   <entry>
     <title type="html"><![CDATA[Fixes are coming...]]></title>
-    <link href="http://aknosis.com/2011/04/19/fixes-are-coming/"/>
+    <link href="http://aknosis.github.com/2011/04/19/fixes-are-coming/"/>
     <updated>2011-04-19T14:30:38-07:00</updated>
-    <id>http://aknosis.com/2011/04/19/fixes-are-coming</id>
+    <id>http://aknosis.github.com/2011/04/19/fixes-are-coming</id>
     <content type="html"><![CDATA[<p>New theme, new color scheme, etc. I&#8217;m going to try and work my way back and replace all of my inline javascript stuff with jsfiddle snippets.</p>
 
 <p>If you catch anything I miss feel free to let me know.</p>
@@ -596,19 +596,19 @@ if(defined('className::CONSTANT_NAME')){
   
   <entry>
     <title type="html"><![CDATA[I want to be a jkweeree Ninja!]]></title>
-    <link href="http://aknosis.com/2010/11/06/i-want-to-be-a-jkweeree-ninja/"/>
+    <link href="http://aknosis.github.com/2010/11/06/i-want-to-be-a-jkweeree-ninja/"/>
     <updated>2010-11-06T16:27:35-07:00</updated>
-    <id>http://aknosis.com/2010/11/06/i-want-to-be-a-jkweeree-ninja</id>
+    <id>http://aknosis.github.com/2010/11/06/i-want-to-be-a-jkweeree-ninja</id>
     <content type="html"><![CDATA[<p>Below is my entry for Adam Sontag&#8217;s contest to win a ticket to the 2010 jQuery Summit. It pretty much sums up as per the spec of the contest, I want to be a jQuery Ninja [while wearing a Devo Whip It hat in jQuery blue :)].
-<a href="http://aknosis.com/images/2010/11/DSCF8344-e1289083614559.jpg"><img class="alignnone size-large wp-image-378" title="jkweeree ninja" src="http://aknosis.com/images/2010/11/DSCF8344-e1289083614559-768x1024.jpg" alt="" width="600" /></a></p>
+<a href="http://aknosis.github.com/images/2010/11/DSCF8344-e1289083614559.jpg"><img class="alignnone size-large wp-image-378" title="jkweeree ninja" src="http://aknosis.github.com/images/2010/11/DSCF8344-e1289083614559-768x1024.jpg" alt="" width="600" /></a></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Backing Up XenServer VMs via Command Line]]></title>
-    <link href="http://aknosis.com/2010/09/25/backing-up-xenserver-vms-via-command-line/"/>
+    <link href="http://aknosis.github.com/2010/09/25/backing-up-xenserver-vms-via-command-line/"/>
     <updated>2010-09-25T08:41:21-07:00</updated>
-    <id>http://aknosis.com/2010/09/25/backing-up-xenserver-vms-via-command-line</id>
+    <id>http://aknosis.github.com/2010/09/25/backing-up-xenserver-vms-via-command-line</id>
     <content type="html"><![CDATA[<p>Quick and easy steps to backup a vm via the command line.</p>
 
 <p>On your host server:</p>
@@ -631,9 +631,9 @@ if(defined('className::CONSTANT_NAME')){
   
   <entry>
     <title type="html"><![CDATA[Retrieve D-Link Router WPA Password via Firebug]]></title>
-    <link href="http://aknosis.com/2010/03/19/retrieve-d-link-router-wpa-password-via-firebug/"/>
+    <link href="http://aknosis.github.com/2010/03/19/retrieve-d-link-router-wpa-password-via-firebug/"/>
     <updated>2010-03-19T22:39:35-07:00</updated>
-    <id>http://aknosis.com/2010/03/19/retrieve-d-link-router-wpa-password-via-firebug</id>
+    <id>http://aknosis.github.com/2010/03/19/retrieve-d-link-router-wpa-password-via-firebug</id>
     <content type="html"><![CDATA[<p>Well I&#8217;ve done it a million times, I forget my WPA password and each time a new device comes along I have to change it for them all. Well no more!</p>
 
 <!--more-->
@@ -657,9 +657,9 @@ if(defined('className::CONSTANT_NAME')){
   
   <entry>
     <title type="html"><![CDATA[jQuery 1.4.2 Released]]></title>
-    <link href="http://aknosis.com/2010/02/19/jquery-1-4-2-released/"/>
+    <link href="http://aknosis.github.com/2010/02/19/jquery-1-4-2-released/"/>
     <updated>2010-02-19T21:29:31-07:00</updated>
-    <id>http://aknosis.com/2010/02/19/jquery-1-4-2-released</id>
+    <id>http://aknosis.github.com/2010/02/19/jquery-1-4-2-released</id>
     <content type="html"><![CDATA[<p>Such quick turn around for the last two point releases are building my confidence in jQuery! I love to see the huge performance improvements, its almost becoming an issue to try and fit each release into our codebase at work. Love jQuery nonetheless&#8230; keep up the good work.</p>
 
 <p>Relase notes: <a href="http://blog.jquery.com/2010/02/19/jquery-142-released/">http://blog.jquery.com/2010/02/19/jquery-142-released/</a></p>
@@ -692,9 +692,9 @@ if(defined('className::CONSTANT_NAME')){
   
   <entry>
     <title type="html"><![CDATA[Automating MySQL Database Backups on the Command Line via mysqldump ]]></title>
-    <link href="http://aknosis.com/2009/10/25/automating-mysql-database-backups-on-the-command-line-via-mysqldump/"/>
+    <link href="http://aknosis.github.com/2009/10/25/automating-mysql-database-backups-on-the-command-line-via-mysqldump/"/>
     <updated>2009-10-25T22:54:30-07:00</updated>
-    <id>http://aknosis.com/2009/10/25/automating-mysql-database-backups-on-the-command-line-via-mysqldump</id>
+    <id>http://aknosis.github.com/2009/10/25/automating-mysql-database-backups-on-the-command-line-via-mysqldump</id>
     <content type="html"><![CDATA[<h2>Are you tired of manually running backups when you remember to?</h2>
 
 
@@ -955,9 +955,9 @@ mv test.tgz /my/network_attached_storage
   
   <entry>
     <title type="html"><![CDATA[Apache: How to redirect all root domain traffic to www subdomain]]></title>
-    <link href="http://aknosis.com/2009/10/22/apache-how-to-redirect-all-root-domain-traffic-to-www-subdomain/"/>
+    <link href="http://aknosis.github.com/2009/10/22/apache-how-to-redirect-all-root-domain-traffic-to-www-subdomain/"/>
     <updated>2009-10-22T22:37:20-07:00</updated>
-    <id>http://aknosis.com/2009/10/22/apache-how-to-redirect-all-root-domain-traffic-to-www-subdomain</id>
+    <id>http://aknosis.github.com/2009/10/22/apache-how-to-redirect-all-root-domain-traffic-to-www-subdomain</id>
     <content type="html"><![CDATA[<p>Problem: Traffic comes to http://aknosis.com/something/ but they really need to go to http://www.aknosis.com/something/.</p>
 
 <p>Solution: 301 Redirect via Apache with mod_rewrite.</p>
@@ -993,25 +993,25 @@ http://www.aknosis.com/$1 - Rewrite to this ($1 = the request uri)
 
 <p>Try it out, go here (<a href="http://aknosis.com/">http://aknosis.com/</a>) and you end up here (<a href="http://www.aknosis.com/">http://www.aknosis.com/</a>). You can see the actual redirect in firebug&#8217;s net tab:</p>
 
-<p style="text-align: center;"><a href="http://aknosis.com/images/2009/10/firebug-redirect.jpg"><img class="size-full wp-image-272 aligncenter" title="firebug-redirect" src="http://aknosis.com/images/2009/10/firebug-redirect.jpg" alt="firebug-redirect" width="619" height="112" /></a></p>
+<p style="text-align: center;"><a href="http://aknosis.github.com/images/2009/10/firebug-redirect.jpg"><img class="size-full wp-image-272 aligncenter" title="firebug-redirect" src="http://aknosis.github.com/images/2009/10/firebug-redirect.jpg" alt="firebug-redirect" width="619" height="112" /></a></p>
 
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[A ton of Web Developer Cheat Sheets]]></title>
-    <link href="http://aknosis.com/2009/10/19/a-ton-of-web-developer-cheat-sheets/"/>
+    <link href="http://aknosis.github.com/2009/10/19/a-ton-of-web-developer-cheat-sheets/"/>
     <updated>2009-10-19T22:06:57-07:00</updated>
-    <id>http://aknosis.com/2009/10/19/a-ton-of-web-developer-cheat-sheets</id>
+    <id>http://aknosis.github.com/2009/10/19/a-ton-of-web-developer-cheat-sheets</id>
     <content type="html"><![CDATA[<p>Stop digging in your notebook for all your hand written notes, or jumping around your My Computer, because anything you ever wanted it probably listed here: <a href="http://www.tripwiremagazine.com/tools/tools/55-seriously-useful-front-end-web-developer-cheat-sheets.html">http://www.tripwiremagazine.com/tools/tools/55-seriously-useful-front-end-web-developer-cheat-sheets.html</a></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Fun with jQuery - Checkboxes!!!]]></title>
-    <link href="http://aknosis.com/2009/10/17/fun-with-jquery-checkboxes/"/>
+    <link href="http://aknosis.github.com/2009/10/17/fun-with-jquery-checkboxes/"/>
     <updated>2009-10-17T22:43:15-07:00</updated>
-    <id>http://aknosis.com/2009/10/17/fun-with-jquery-checkboxes</id>
+    <id>http://aknosis.github.com/2009/10/17/fun-with-jquery-checkboxes</id>
     <content type="html"><![CDATA[<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 
 
@@ -1023,7 +1023,7 @@ http://www.aknosis.com/$1 - Rewrite to this ($1 = the request uri)
 
 <p>Another day with jQuery, this time we are talking about checkboxes.</p>
 
-<p>Just like I stated in my <a href="http://aknosis.com/2009/10/15/more-jquery-fun-auto-populating-a-select-box/">previous post</a> about select boxes, jQuery and checkbox <em>integration</em>, if you will, isn&#8217;t cut and dry but damn near close. So how can jQuery assist with checkboxes? Lots of ways, here are a few examples to keep you entertained.</p>
+<p>Just like I stated in my <a href="http://aknosis.github.com/2009/10/15/more-jquery-fun-auto-populating-a-select-box/">previous post</a> about select boxes, jQuery and checkbox <em>integration</em>, if you will, isn&#8217;t cut and dry but damn near close. So how can jQuery assist with checkboxes? Lots of ways, here are a few examples to keep you entertained.</p>
 
 <p>Try and manually select a checkbox and it will still toggle them correctly (turn them off it they are on and vice versa).</p>
 
@@ -1312,9 +1312,9 @@ jQuery('#updater div:last').slideDown('slow');
   
   <entry>
     <title type="html"><![CDATA[More jQuery Fun - Auto Populating a Select Box]]></title>
-    <link href="http://aknosis.com/2009/10/15/more-jquery-fun-auto-populating-a-select-box/"/>
+    <link href="http://aknosis.github.com/2009/10/15/more-jquery-fun-auto-populating-a-select-box/"/>
     <updated>2009-10-15T23:10:28-07:00</updated>
-    <id>http://aknosis.com/2009/10/15/more-jquery-fun-auto-populating-a-select-box</id>
+    <id>http://aknosis.github.com/2009/10/15/more-jquery-fun-auto-populating-a-select-box</id>
     <content type="html"><![CDATA[<h3>Note: This post was updated 8/2/2011 to include jsfiddle code snippets and better/smarter code overall. Enjoy!</h3>
 
 
