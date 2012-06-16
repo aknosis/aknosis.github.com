@@ -5,6 +5,7 @@ wordpress_id: 63
 wordpress_url: http://www.aknosis.com/?p=63
 date: 2009-02-28 02:08:20 -07:00
 comments: true
+categories: [php, Quick Tips, Programming]
 ---
 If you want to search for text inside a string but don't need fancyness of regex, here lies strpos.
 
