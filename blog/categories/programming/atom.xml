@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Programming | aknosis.com]]></title>
+  <link href="http://aknosis.com/blog/categories/programming/atom.xml" rel="self"/>
+  <link href="http://aknosis.com/"/>
+  <updated>2012-06-16T01:01:39-07:00</updated>
+  <id>http://aknosis.com/</id>
+  <author>
+    <name><![CDATA[Paul 'aknosis' Giberson]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[PHP Basics: php's list()]]></title>
+    <link href="http://aknosis.com/2012/06/14/php-basics-phps-list/"/>
+    <updated>2012-06-14T19:33:00-07:00</updated>
+    <id>http://aknosis.com/2012/06/14/php-basics-phps-list</id>
+    <content type="html"><![CDATA[<p>If you haven't used <a href="http://php.net/manual/en/function.list.php">list()</a> before, consider it a dead simple way to map from a numerically indexed
+array to any number of variables.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;&amp;lt;?php</span>
+</span><span class='line'><span class="x">$myArray = array(&#39;red&#39;,&#39;blue&#39;,&#39;yellow&#39;);&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;list($red,$blue,$yellow) = $myArray;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;//yields:</span>
+</span><span class='line'><span class="x">// $red = &#39;red&#39;</span>
+</span><span class='line'><span class="x">// $blue = &#39;blue&#39;</span>
+</span><span class='line'><span class="x">// $yellow = &#39;yellow&#39;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Consider sometimes that you only want the nth value of the array:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;&amp;lt;?php</span>
+</span><span class='line'><span class="x">$myArray = array(&#39;red&#39;,&#39;blue&#39;,&#39;yellow&#39;,&#39;green&#39;,&#39;white&#39;);&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;//I used to do:</span>
+</span><span class='line'><span class="x">list($notused,$notused,$notused,$green,$white) = $myArray;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;//yields:</span>
+</span><span class='line'><span class="x">//$notused = &#39;yellow&#39;</span>
+</span><span class='line'><span class="x">//$green = &#39;green&#39;</span>
+</span><span class='line'><span class="x">//$white = &#39;white&#39;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;//but I found a trick where you don&#39;t</span>
+</span><span class='line'><span class="x">//have to provide any variables at all&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;list(,,,,$green,$white) = $myArray;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;//yields:</span>
+</span><span class='line'><span class="x">//$green = &#39;green&#39;</span>
+</span><span class='line'><span class="x">//$white = &#39;white&#39;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Quicktip: Read from stdin in PHP]]></title>
+    <link href="http://aknosis.com/2012/01/18/quicktip-read-from-stdin-in-php/"/>
+    <updated>2012-01-18T17:06:36-07:00</updated>
+    <id>http://aknosis.com/2012/01/18/quicktip-read-from-stdin-in-php</id>
+    <content type="html"><![CDATA[<p><div><script src='https://gist.github.com/1636629.js?file='></script>
+<noscript><pre><code>&lt;?php
+/**
+ * Usage:
+ * $answer = prompt(&quot;What is your quest?&quot;);
+ * echo &quot;Answer: $answer&quot;;
+ * 
+ * Outputs:
+ * What is your quest?
+ * I seek the holy grail!
+ * Answer: I seek the holy grail!
+ */
+function prompt($msg){
+	echo &quot;$msg\n&quot;;
+	return trim(fgets(STDIN));
+}</code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Php: (strpos) Search for text in a string]]></title>
+    <link href="http://aknosis.com/2009/02/28/php-strpos-search-for-text-in-a-string/"/>
+    <updated>2009-02-28T02:08:20-07:00</updated>
+    <id>http://aknosis.com/2009/02/28/php-strpos-search-for-text-in-a-string</id>
+    <content type="html"><![CDATA[<p>If you want to search for text inside a string but don't need fancyness of regex, here lies strpos.</p>
+
+<p>I see a lot of posts online about people confused how strpos works and how to use it for searching for text in a string properly. First thing to note is that strpos() returns the index of the location of the string (not true if the string exists in part of the testing string).  So:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&amp;lt;?php</span>
+</span><span class='line'><span class="x">$string = &#39;thedog&#39;;</span>
+</span><span class='line'><span class="x">var_dump(strpos($string,&#39;dog&#39;));</span>
+</span><span class='line'><span class="x">Output: int(3)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>How does this benefit you if you want to make sure that $string doesn't contain dog:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&amp;lt;?php</span>
+</span><span class='line'><span class="x">$string = &#39;thecat&#39;;</span>
+</span><span class='line'><span class="x">var_dump(strpos($string,&#39;dog&#39;));</span>
+</span><span class='line'><span class="x">Output: bool(false)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>As you can see the result was false, but sticking that strpos straight inside your if statement is bad and erroneous code... Here's why:
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&amp;lt;?php</span>
+</span><span class='line'><span class="x">$string = &#39;thecat&#39;;</span>
+</span><span class='line'><span class="x">if(strpos($string,&#39;the&#39;)){&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;pre&gt;&lt;code&gt;echo &#39;The is in the string&#39;;</span>
+</span><span class='line'><span class="x">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;}else{&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;pre&gt;&lt;code&gt;echo &#39;The is not in the string&#39;;</span>
+</span><span class='line'><span class="x">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;}</span>
+</span><span class='line'><span class="x">Output: The is not in the string</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+What?? Lets take a closer look:
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&amp;lt;?php</span>
+</span><span class='line'><span class="x">$string = &#39;thecat&#39;;</span>
+</span><span class='line'><span class="x">var_dump(strpos($string,&#39;the&#39;));</span>
+</span><span class='line'><span class="x">Output: int(0)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+So you see, the reason the if statement failed is because the if statement fails on a value of 0.</p>
+
+<p>The proper way to test with strpos is as follows:
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&amp;lt;?php</span>
+</span><span class='line'><span class="x">$string = &#39;themonkey&#39;;</span>
+</span><span class='line'><span class="x">if(strpos($string,&#39;monkey&#39;) !== false){&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;pre&gt;&lt;code&gt;echo &#39;There is a monkey in my string&#39;;</span>
+</span><span class='line'><span class="x">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;}</span>
+</span><span class='line'><span class="x">Output: There is a monkey in my string</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+strpos() will return false if monkey is not in $string so the sure fire way to test to make sure it isn't in there is to say that the return value is explictly not false.<em> !== confuse you? This tests for an actual boolean value of false. Other values make cause an if statement to fail (such as 0 mentioned above)</em></p>
+
+<p>(Read more about type comparison here. <a href="http://us2.php.net/manual/en/types.comparisons.php" target="_blank">http://us2.php.net/manual/en/types.comparisons.php</a>)</p>
+
+<p>If data types are making you say huh?? See here:  <a href="http://us3.php.net/manual/en/language.types.php" target="_blank">http://us3.php.net/manual/en/language.types.php</a>, I will post later briefly about php and data types,  if you have used Java than you live and die by data types,  but php has a very simple concept when it comes to data types which makes coding in general easy but relying on and full understanding your own code sometimes difficult.</p>
+
+<p>-Ak</p>
+]]></content>
+  </entry>
+  
+</feed>

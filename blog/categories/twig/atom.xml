@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Twig | aknosis.com]]></title>
+  <link href="http://aknosis.com/blog/categories/twig/atom.xml" rel="self"/>
+  <link href="http://aknosis.com/"/>
+  <updated>2012-06-16T01:01:39-07:00</updated>
+  <id>http://aknosis.com/</id>
+  <author>
+    <name><![CDATA[Paul 'aknosis' Giberson]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Quick Tip: rawurlencode in Twig]]></title>
+    <link href="http://aknosis.com/2012/04/10/quick-tip-rawurlencode-in-twig/"/>
+    <updated>2012-04-10T06:04:00-07:00</updated>
+    <id>http://aknosis.com/2012/04/10/quick-tip-rawurlencode-in-twig</id>
+    <content type="html"><![CDATA[<p>I've been working on modifying listserv digest emails at work and porting them to Twig templates. The fun part was trying to create mailto: links that mimicked hitting reply (auto populating the subject with RE: [post title]).</p>
+
+<p>The problem with just jamming the title in to the ?subject= param is all sorts of fun like spacing and special characters. Turns out that you can use a Twig filter to urlencode a variable: <a href="http://twig.sensiolabs.org/doc/filters/url_encode.html">Twig - urlencode filter</a></p>
+
+<p>Under the hood Twig's urlencode filter uses php's <a href="http://us.php.net/manual/en/function.urlencode.php">urlencode</a>. If you use the urlencode filter you may notice one slight issue, spaces are converted to + instead of %20. According php.net the solution here is to use rawurlencode instead of urlenccode. Well how do you go about calling the rawurlencode filter if it doesn't exist?</p>
+
+<p>RTFS! I couldn't seem to find out why rawurlencode wasn't an available filter and really didn't want to roll my own, it turns out if you <a href="https://github.com/fabpot/Twig/blob/master/lib/Twig/Extension/Core.php#L475"><em>read the source</em></a> you fill find an nice undocumented feature. Instead of creating a new filter for rawurlencode all you need to do is pass true to the urlencode filter!</p>
+
+<p>Example:
+<div><script src='https://gist.github.com/2347191.js?file='></script>
+<noscript><pre><code>{# varaible is 'Hello There' #}
+
+{{ variable|url_encode() }} {# Hello+There #}
+
+{# If you want to use rawurlencode what do you do? #}
+
+{{ variable|url_encode(true) }} {# Hello%20There #}
+
+</code></pre></noscript></div>
+</p>
+
+<p>Next step is to make a pull request and update the docs to be more verbose!</p>
+
+<p>Enjoy.</p>
+]]></content>
+  </entry>
+  
+</feed>

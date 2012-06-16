@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: System Administration | aknosis.com]]></title>
+  <link href="http://aknosis.com/blog/categories/system-administration/atom.xml" rel="self"/>
+  <link href="http://aknosis.com/"/>
+  <updated>2012-06-16T01:01:39-07:00</updated>
+  <id>http://aknosis.com/</id>
+  <author>
+    <name><![CDATA[Paul 'aknosis' Giberson]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Quicktip: Read from stdin in PHP]]></title>
+    <link href="http://aknosis.com/2012/01/18/quicktip-read-from-stdin-in-php/"/>
+    <updated>2012-01-18T17:06:36-07:00</updated>
+    <id>http://aknosis.com/2012/01/18/quicktip-read-from-stdin-in-php</id>
+    <content type="html"><![CDATA[<p><div><script src='https://gist.github.com/1636629.js?file='></script>
+<noscript><pre><code>&lt;?php
+/**
+ * Usage:
+ * $answer = prompt(&quot;What is your quest?&quot;);
+ * echo &quot;Answer: $answer&quot;;
+ * 
+ * Outputs:
+ * What is your quest?
+ * I seek the holy grail!
+ * Answer: I seek the holy grail!
+ */
+function prompt($msg){
+	echo &quot;$msg\n&quot;;
+	return trim(fgets(STDIN));
+}</code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
+  
+</feed>

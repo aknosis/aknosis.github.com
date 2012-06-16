@@ -1,0 +1,379 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Using jQuery to rewrite relative urls to absolute urls - [revisited] - aknosis.com</title>
+  <meta name="author" content="Paul 'aknosis' Giberson">
+
+  
+  <meta name="description" content="After scanning my site stats and realizing that an old post about how to rewrite all the relative urls on a page with jQuery was one of my most &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://aknosis.com/2011/07/17/using-jquery-to-rewrite-relative-urls-to-absolute-urls-revisited/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/aknosis" rel="alternate" title="aknosis.com" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11096805-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">aknosis.com</a></h1>
+  
+    <h2>webdev && sysadmin quips, tips, articles + more</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/aknosis" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:aknosis.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Using jQuery to Rewrite Relative Urls to Absolute Urls - [Revisited]</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-17T00:38:03-07:00" pubdate data-updated="true">Jul 17<span>th</span>, 2011</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>After scanning my site stats and realizing that an old post about <a title="Using jQuery to rewrite all relative urls" href="http://aknosis.com/2009/02/11/using-jquery-to-rewrite-all-relative-urls/">how to rewrite all the relative urls on a page with jQuery</a> was one of my most visited, I decided to review the code and noticed it could be improved. My knowledge of JavaScript and jQuery has improved immensely since that previous post and this revisit is an attempt to improve upon it.</p>
+
+<h4>Problem: Need to change all the relative urls on a page and replace with an absolute url.</h4>
+
+
+<p>Different from my other post I&#8217;m going to separate the concerns of this problem: 1 being selecting only the links that are relative and not inline or mailto: links; 2 modifying the href.</p>
+
+<h4>Selecting the links on a page</h4>
+
+
+<p>The jQuery standard $(&#8216;a&#8217;) will only solve half our problem because we only want links that are relative. There are several different methods we can use with jQuery to get exactly what you need, however first take into context what your page actually looks like. You may be able to save some time if your page has relatively few links, on the other hand if you have a page with hundreds of links you will need to chose your <a href="http://api.jquery.com/category/selectors/">selectors</a> wisely. To make the best and most informed decision, I suggest you test your various use cases @ <a href="http://jsperf.com/">http://jsperf.com/</a>.</p>
+
+<p>Here are three that I came up with:</p>
+
+<figure class='code'><figcaption><span>jQuery Selectors  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="s1">&#39;[href^=&quot;http&quot;],[href^=&quot;https&quot;],[href^=&quot;mailto:&quot;],[href^=&quot;#&quot;]&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a:not([href^=&quot;http:&quot;],[href^=&quot;https:&quot;],[href^=&quot;mailto:&quot;],[href^=&quot;#&quot;])&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a:not([href*=&quot;://&quot;],[href^=&quot;mailto:&quot;],[href^=&quot;#&quot;])&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!--more-->
+
+
+<p>I&#8217;m going to use the first one just because it is a little bit more succinct. Now that we have all of the relative links on the page we need modify the href for each one.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'><span class="c1">//Use jQuerys .each() method to iterate over each link</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="s1">&#39;[href^=&quot;http&quot;],[href^=&quot;https&quot;],[href^=&quot;mailto:&quot;],[href^=&quot;#&quot;]&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'><span class="c1">//Use .attr() to modify the href, when you provide a callback function</span>
+</span><span class='line'><span class="c1">//the arguments passed are the attribute index and its value</span>
+</span><span class='line'>            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'><span class="c1">//This fix solves the problem when you aren&#39;t at the root level of a site</span>
+</span><span class='line'><span class="c1">// e.g. if you are at site.com/page1/ and the link href is &quot;do/something&quot;</span>
+</span><span class='line'><span class="c1">// we need to make sure the absolute url becomes newsite.com/page1/do/something</span>
+</span><span class='line'><span class="c1">// if we just prepended the new domain we would actually get newsite.comdo/something</span>
+</span><span class='line'><span class="c1">// which obviously wouldn&#39;t work</span>
+</span><span class='line'>                <span class="k">if</span> <span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">!==</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="nx">value</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span> <span class="o">+</span> <span class="nx">value</span><span class="p">;</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'><span class="c1">//When you return from the callback function for .attr() it will set the attribute</span>
+</span><span class='line'><span class="c1">//to this new value.</span>
+</span><span class='line'><span class="c1">//We don&#39;t use a trailing slash on mynewurl.com because it will already exist if</span>
+</span><span class='line'><span class="c1">//the href starts with a / or it will be part of window.location.pathname</span>
+</span><span class='line'>                <span class="k">return</span> <span class="s2">&quot;http://mynewurl.com&quot;</span> <span class="o">+</span> <span class="nx">value</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">});</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Live example below, hover over the links to see the urls before, click the button and check them again, all of the relative links will become absolute with the new domain.</p>
+
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/kWrjr/embedded/js,html,result/light/"></iframe>
+
+
+<p></p>
+
+<p>Thanks for reading my post, I hope it was helpful.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul 'aknosis' Giberson</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-17T00:38:03-07:00" pubdate data-updated="true">Jul 17<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://aknosis.com/2011/07/17/using-jquery-to-rewrite-relative-urls-to-absolute-urls-revisited/" data-via="aknosis" data-counturl="http://aknosis.com/2011/07/17/using-jquery-to-rewrite-relative-urls-to-absolute-urls-revisited/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/07/12/quicktip-random-string-in-unix/" title="Previous Post: Quicktip: Random string in unix">&laquo; Quicktip: Random string in unix</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/09/02/quicktip-simple-file-based-cache-mechanism-in-php/" title="Next Post: Quicktip: Simple File Based Cache Mechanism in PHP">Quicktip: Simple File Based Cache Mechanism in PHP &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/06/14/php-basics-phps-list/">PHP Basics: php's list()</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/10/quick-tip-rawurlencode-in-twig/">Quick Tip: rawurlencode in Twig</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/01/18/quicktip-read-from-stdin-in-php/">Quicktip: Read from stdin in PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/28/quicktip-add-conditionals-in-a-sql-where-clause/">Quicktip: Add conditionals in a WHERE clause</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/07/github-gist-shortcode-wordpress-plugin-update/">GitHub Gist Shortcode Wordpress Plugin Update</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/aknosis">@aknosis</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'aknosis',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("aknosis", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/aknosis" class="twitter-follow-button" data-show-count="false">Follow @aknosis</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Paul 'aknosis' Giberson -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'aknosis';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://aknosis.com/2011/07/17/using-jquery-to-rewrite-relative-urls-to-absolute-urls-revisited/';
+        var disqus_url = 'http://aknosis.com/2011/07/17/using-jquery-to-rewrite-relative-urls-to-absolute-urls-revisited/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

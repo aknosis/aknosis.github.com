@@ -1,0 +1,416 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fun with jQuery - toggle() - Easy tips to visually enhance your website - aknosis.com</title>
+  <meta name="author" content="Paul 'aknosis' Giberson">
+
+  
+  <meta name="description" content="$.noConflict(); Here&#8217;s a quick tip to add some cool effects with jQuery that require very little code to implement. In this example I&#8217;m &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://aknosis.com/2009/10/14/fun-with-jquery-toggle-easy-tips-to-visually-enhance-your-website/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/aknosis" rel="alternate" title="aknosis.com" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11096805-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">aknosis.com</a></h1>
+  
+    <h2>webdev && sysadmin quips, tips, articles + more</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/aknosis" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:aknosis.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Fun With jQuery - Toggle() - Easy Tips to Visually Enhance Your Website</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-14T00:06:26-07:00" pubdate data-updated="true">Oct 14<span>th</span>, 2009</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+
+
+<script>
+    $.noConflict();
+</script>
+
+
+<p>Here&#8217;s a quick tip to add some cool effects with jQuery that require very little code to implement. In this example I&#8217;m going to so how use of the toggle function can make the simplest functionality and jazz it up.</p>
+
+<h2><a href="http://docs.jquery.com/Effects/toggle">.toggle()</a></h2>
+
+
+<p>In a nutshell, the toggle function will call the show() function if your element isn&#8217;t visible and the hide() function if it is.
+<input class="button" onclick="jQuery('#preview1').toggle();" type="button" value="Hide My Menu" /></p>
+
+<ul id="preview1">
+    <li>Hamburger</li>
+    <li>Philly Cheese Steak</li>
+    <li>Taco</li>
+    <li>Pizza</li>
+    <li>Something else greasy and unhealthy</li>
+</ul>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;input</span> <span class="na">onclick=</span><span class="s">&quot;$(&#39;#preview1&#39;).toggle();&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">value=</span><span class="s">&quot;Toggle My Menu&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So as expected, clicking the button will toggle the menu. Now lets get a little more flashy:</p>
+
+<!--more-->
+
+
+<p><input class="button" onclick="jQuery('#preview2').toggle('slow');" type="button" value="Hide My Menu" /></p>
+
+<ul id="preview2">
+    <li>Hamburger</li>
+    <li>Philly Cheese Steak</li>
+    <li>Taco</li>
+    <li>Pizza</li>
+    <li>Something else greasy and unhealthy</li>
+</ul>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;input</span> <span class="na">onclick=</span><span class="s">&quot;$(&#39;#preview2&#39;).toggle(&#39;slow&#39;);&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">value=</span><span class="s">&quot;Toggle My Menu&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now you have a &#8216;sliding&#8217; type effect for showing and hiding contents all with about 40 extra characters of text.
+Want to be a bit more &#8216;dynamic&#8217;?
+<input id="menuToggler" class="button" onclick="jQuery('#preview3').toggle('slow',function(){if(jQuery(this).is(':visible')){jQuery('#menuToggler').val('Hide My Menu');}else{jQuery('#menuToggler').val('Show My Menu');}});" type="button" value="Hide My Menu" /></p>
+
+<ul id="preview3">
+    <li>Hamburger</li>
+    <li>Philly Cheese Steak</li>
+    <li>Taco</li>
+    <li>Pizza</li>
+    <li>Something else greasy and unhealthy</li>
+</ul>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">&quot;button&quot;</span> <span class="na">id=</span><span class="s">&quot;menuToggler&quot;</span> <span class="na">onclick=</span><span class="s">&quot;$(&#39;#preview3&#39;).toggle(&#39;slow&#39;,function(){if($(this).is(&#39;:visible&#39;)){$(&#39;#menuToggler&#39;).val(&#39;Hide My Menu&#39;);}else{$(&#39;#menuToggler&#39;).val(&#39;Show My Menu&#39;);}});&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">value=</span><span class="s">&quot;Hide My Menu&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here is better formatted javascript:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#preview3&#39;</span><span class="p">).</span><span class="nx">toggle</span><span class="p">(</span><span class="s1">&#39;slow&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">is</span><span class="p">(</span><span class="s1">&#39;:visible&#39;</span><span class="p">)){</span>
+</span><span class='line'>          <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#menuToggler&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">&#39;Hide My Menu&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>          <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#menuToggler&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">&#39;Show My Menu&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What happens here is I have now created a function that is called once the toggle animation is done, it checks to see if the menu is visible and changes the buttons value based on that check.</p>
+
+<p>As I said before, toggle just does the math and executes a hide or show on the element. Here is an example of the same thing using hide and show seperately.
+<input class="button" onclick="jQuery('#preview4').hide('slow');" type="button" value="Hide My Menu" />
+<input class="button" onclick="jQuery('#preview4').show('slow');" type="button" value="Show My Menu" /></p>
+
+<ul id="preview4">
+    <li>Hamburger</li>
+    <li>Philly Cheese Steak</li>
+    <li>Taco</li>
+    <li>Pizza</li>
+    <li>Something else greasy and unhealthy</li>
+</ul>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">&quot;button&quot;</span> <span class="na">onclick=</span><span class="s">&quot;$(&#39;#preview4&#39;).hide(&#39;slow&#39;);&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">value=</span><span class="s">&quot;Hide My Menu&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">&quot;button&quot;</span> <span class="na">onclick=</span><span class="s">&quot;$(&#39;#preview4&#39;).show(&#39;slow&#39;);&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">value=</span><span class="s">&quot;Show My Menu&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Stay tuned for more fun with <a href="http://www.aknosis.com/tag/jquery/">jQuery</a>, my favorite JavaScript library. <a href="http://jquery.com/">http://jquery.com/</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul 'aknosis' Giberson</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-14T00:06:26-07:00" pubdate data-updated="true">Oct 14<span>th</span>, 2009</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://aknosis.com/2009/10/14/fun-with-jquery-toggle-easy-tips-to-visually-enhance-your-website/" data-via="aknosis" data-counturl="http://aknosis.com/2009/10/14/fun-with-jquery-toggle-easy-tips-to-visually-enhance-your-website/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2009/10/13/hiding-unnecessary-response-headers-apachephp/" title="Previous Post: Hiding Unnecessary Response Headers Apache/PHP">&laquo; Hiding Unnecessary Response Headers Apache/PHP</a>
+      
+      
+        <a class="basic-alignment right" href="/2009/10/15/more-jquery-fun-auto-populating-a-select-box/" title="Next Post: More jQuery Fun - Auto Populating a Select Box">More jQuery Fun - Auto Populating a Select Box &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/06/14/php-basics-phps-list/">PHP Basics: php's list()</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/10/quick-tip-rawurlencode-in-twig/">Quick Tip: rawurlencode in Twig</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/01/18/quicktip-read-from-stdin-in-php/">Quicktip: Read from stdin in PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/28/quicktip-add-conditionals-in-a-sql-where-clause/">Quicktip: Add conditionals in a WHERE clause</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/07/github-gist-shortcode-wordpress-plugin-update/">GitHub Gist Shortcode Wordpress Plugin Update</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/aknosis">@aknosis</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'aknosis',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("aknosis", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/aknosis" class="twitter-follow-button" data-show-count="false">Follow @aknosis</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Paul 'aknosis' Giberson -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'aknosis';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://aknosis.com/2009/10/14/fun-with-jquery-toggle-easy-tips-to-visually-enhance-your-website/';
+        var disqus_url = 'http://aknosis.com/2009/10/14/fun-with-jquery-toggle-easy-tips-to-visually-enhance-your-website/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

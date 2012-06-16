@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Parsing a CSV file with ASP - aknosis.com</title>
+  <meta name="author" content="Paul 'aknosis' Giberson">
+
+  
+  <meta name="description" content="I&#8217;m no fan of ASP especially after having to work with it&#8230; but regardless I had to. Problem: I don&#8217;t want to try and get a database &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://aknosis.com/2009/02/12/parsing-a-csv-file-with-asp/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/aknosis" rel="alternate" title="aknosis.com" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11096805-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">aknosis.com</a></h1>
+  
+    <h2>webdev && sysadmin quips, tips, articles + more</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/aknosis" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:aknosis.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Parsing a CSV File With ASP</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-12T23:31:52-07:00" pubdate data-updated="true">Feb 12<span>th</span>, 2009</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&#8217;m no fan of ASP especially after having to work with it&#8230; but regardless I had to.</p>
+
+<p>Problem:</p>
+
+<p>I don&#8217;t want to try and get a database running for a simple task that would require one table with few rows, but I also didn&#8217;t want to jump in and edit html when one small change had to take place.</p>
+
+<p>Solution:</p>
+
+<p>Build a csv file and use asp to parse it.</p>
+
+<p>It still doesn&#8217;t make much sense to me but what it does basically pushes all the data into one giant line like (a1,b1,c1,d1,a2,b2,c2,d2) and it counts the number of columns and rows you have. The for loop then uses these number to put it into a multi-dimensional array based off of (row,column)
+Here is the code:</p>
+
+<pre>csv_to_read="csvfile.csv"
+set fso = createobject("scripting.filesystemobject")
+set act = fso.opentextfile(server.mappath(csv_to_read))
+imported_text = act.readline
+imported_text = replace(imported_text,chr(13),",")
+imported_text = replace(imported_text,chr(34),"")
+split_text=split(imported_text,",")
+num_imported=ubound(split_text)+1
+total_imported_text = act.readall
+total_imported_text = replace(total_imported_text,chr(13),",")
+total_imported_text = replace(total_imported_text,chr(34),"")
+total_split_text=split(total_imported_text,",")
+total_num_imported=ubound(total_split_text)
+trows = (total_num_imported/ (num_imported)-1)
+'Have to pre-initialize the size of the array
+Dim array(10,25)
+count=0
+for column = 0 to trows
+    for row = 0 to num_imported -1
+    array(row,column) = total_split_text(count)
+    count=count+1
+    next
+Next</pre>
+
+
+<p>To pull a single value out of that (passed via url like file.asp?z=7) I do the following:</p>
+
+<pre>input=CInt(Request.QueryString("z"))
+'Fill up the variables I need until they are what was actually passed in url and exit
+For i = 0 to trows
+    id = CInt(Replace(array(0,i),chr(10),""))
+    title = array(1,i)
+    price = array(2,i)
+    If id = input Then
+        Exit For
+    End If
+Next
+
+'Now I go on my merry way and use the variables as needed:
+    &lt;h1&gt;&lt;% Response.Write(title) %&gt;&lt;/h1&gt;
+    &lt;h2&gt;&lt;% Response.Write(price) %&gt;&lt;/h2&gt;</pre>
+
+
+<p>Conclusion</p>
+
+<p>This wasn&#8217;t quick to figure out but it is dirty and I only wrote it because I have 0 asp knowledge and did not want to try and learn how to connect asp to a MySQL or SQL Server at GoDaddy (not worth the trouble, and gladly I&#8217;ll be moving this site to my own server soon enough)</p>
+
+<p>One thing I can&#8217;t argue with in a situation like this is if it&#8217;s not broken, don&#8217;t fix it!</p>
+
+<p>Another intersted bit of code I had to figure out to do in asp was to always print the last day of the current month. I will post that code soon.</p>
+
+<p>-Ak</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul 'aknosis' Giberson</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-12T23:31:52-07:00" pubdate data-updated="true">Feb 12<span>th</span>, 2009</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://aknosis.com/2009/02/12/parsing-a-csv-file-with-asp/" data-via="aknosis" data-counturl="http://aknosis.com/2009/02/12/parsing-a-csv-file-with-asp/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2009/02/11/using-jquery-to-rewrite-all-relative-urls/" title="Previous Post: Using jQuery to rewrite all relative url's">&laquo; Using jQuery to rewrite all relative url's</a>
+      
+      
+        <a class="basic-alignment right" href="/2009/02/28/php-strpos-search-for-text-in-a-string/" title="Next Post: Php: (strpos) Search for text in a string">Php: (strpos) Search for text in a string &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/06/14/php-basics-phps-list/">PHP Basics: php's list()</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/10/quick-tip-rawurlencode-in-twig/">Quick Tip: rawurlencode in Twig</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/01/18/quicktip-read-from-stdin-in-php/">Quicktip: Read from stdin in PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/28/quicktip-add-conditionals-in-a-sql-where-clause/">Quicktip: Add conditionals in a WHERE clause</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/07/github-gist-shortcode-wordpress-plugin-update/">GitHub Gist Shortcode Wordpress Plugin Update</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/aknosis">@aknosis</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'aknosis',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("aknosis", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/aknosis" class="twitter-follow-button" data-show-count="false">Follow @aknosis</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Paul 'aknosis' Giberson -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'aknosis';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://aknosis.com/2009/02/12/parsing-a-csv-file-with-asp/';
+        var disqus_url = 'http://aknosis.com/2009/02/12/parsing-a-csv-file-with-asp/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

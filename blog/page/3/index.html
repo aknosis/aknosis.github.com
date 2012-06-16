@@ -1,0 +1,965 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>aknosis.com</title>
+  <meta name="author" content="Paul 'aknosis' Giberson">
+
+  
+  <meta name="description" content="$.noConflict(); Here&#8217;s a quick tip to add some cool effects with jQuery that require very little code to implement. In this example I&#8217;m &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://aknosis.com/blog/page/3/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/aknosis" rel="alternate" title="aknosis.com" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11096805-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">aknosis.com</a></h1>
+  
+    <h2>webdev && sysadmin quips, tips, articles + more</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/aknosis" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:aknosis.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/10/14/fun-with-jquery-toggle-easy-tips-to-visually-enhance-your-website/">Fun With jQuery - Toggle() - Easy Tips to Visually Enhance Your Website</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-14T00:06:26-07:00" pubdate data-updated="true">Oct 14<span>th</span>, 2009</time>
+        
+         | <a href="/2009/10/14/fun-with-jquery-toggle-easy-tips-to-visually-enhance-your-website/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+
+
+<script>
+    $.noConflict();
+</script>
+
+
+<p>Here&#8217;s a quick tip to add some cool effects with jQuery that require very little code to implement. In this example I&#8217;m going to so how use of the toggle function can make the simplest functionality and jazz it up.</p>
+
+<h2><a href="http://docs.jquery.com/Effects/toggle">.toggle()</a></h2>
+
+
+<p>In a nutshell, the toggle function will call the show() function if your element isn&#8217;t visible and the hide() function if it is.
+<input class="button" onclick="jQuery('#preview1').toggle();" type="button" value="Hide My Menu" /></p>
+
+<ul id="preview1">
+    <li>Hamburger</li>
+    <li>Philly Cheese Steak</li>
+    <li>Taco</li>
+    <li>Pizza</li>
+    <li>Something else greasy and unhealthy</li>
+</ul>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;input</span> <span class="na">onclick=</span><span class="s">&quot;$(&#39;#preview1&#39;).toggle();&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">value=</span><span class="s">&quot;Toggle My Menu&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So as expected, clicking the button will toggle the menu. Now lets get a little more flashy:</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2009/10/14/fun-with-jquery-toggle-easy-tips-to-visually-enhance-your-website/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/10/13/hiding-unnecessary-response-headers-apachephp/">Hiding Unnecessary Response Headers Apache/PHP</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-13T23:23:15-07:00" pubdate data-updated="true">Oct 13<span>th</span>, 2009</time>
+        
+         | <a href="/2009/10/13/hiding-unnecessary-response-headers-apachephp/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One way to help protect your website/server is to not tell everyone what platform and app versions everything is running on. If you were to request a php file from my site you see some response headers that could be useful to people looking to break in, cause havoc etc&#8230;</p>
+
+<p>Here is my request to aknosis.com (I&#8217;m viewing all of this in <a href="http://getfirebug.com/">Firebug</a>, if you don&#8217;t have it get it, best web development tool in my arsenal)</p>
+
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>Date</td>
+<td><code>Wed, 14 Oct 2009 05:59:59 GMT</code></td>
+</tr>
+<tr>
+<td>Server</td>
+<td><code>Apache/2.2.3 (CentOS) PHP/5.2.9 mod_ssl/2.2.3 OpenSSL/0.9.8b</code></td>
+</tr>
+<tr>
+<td>X-Powered-By</td>
+<td><code>PHP/5.2.9</code></td>
+</tr>
+<tr>
+<td>X-Pingback</td>
+<td><code>http://www.aknosis.com/akwp/xmlrpc.php</code></td>
+</tr>
+<tr>
+<td>Expires</td>
+<td><code>Wed, 11 Jan 1984 05:00:00 GMT</code></td>
+</tr>
+<tr>
+<td>Last-Modified</td>
+<td><code>Wed, 14 Oct 2009 06:00:00 GMT</code></td>
+</tr>
+<tr>
+<td>Cache-Control</td>
+<td><code>no-cache, must-revalidate, max-age=0</code></td>
+</tr>
+<tr>
+<td>Pragma</td>
+<td><code>no-cache</code></td>
+</tr>
+<tr>
+<td>Vary</td>
+<td><code>Accept-Encoding,User-Agent</code></td>
+</tr>
+<tr>
+<td>Content-Encoding</td>
+<td><code>gzip</code></td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td><code>10636</code></td>
+</tr>
+<tr>
+<td>Keep-Alive</td>
+<td><code>timeout=2, max=100</code></td>
+</tr>
+<tr>
+<td>Connection</td>
+<td><code>Keep-Alive</code></td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td><code>text/html; charset=UTF-8</code></td>
+</tr>
+</tbody></table>
+
+
+<p>So if I was running a known insecure version of php, apache, or any other out of date software exposed in the response headers, an attacker has to look no further to determine what you are using and how best to attack you.</p>
+
+<h1>Apache</h1>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2009/10/13/hiding-unnecessary-response-headers-apachephp/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/10/02/optimizing-website-peformance-with-a-cdn-jquery/">Optimizing Website Peformance With a CDN (jQuery)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-02T22:11:17-07:00" pubdate data-updated="true">Oct 2<span>nd</span>, 2009</time>
+        
+         | <a href="/2009/10/02/optimizing-website-peformance-with-a-cdn-jquery/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If you want to increase load times for your site a good way is to serve your resources (js/images/css) from different hosts. Even better is to use a CDN (<a href="http://en.wikipedia.org/wiki/Content_delivery_network">Content Delivery Network)</a> that has edge locations, see Amazon&#8217;s <a href="http://aws.amazon.com/cloudfront/">CloudFront</a>, that will serve those resources from hosts that are nearest to your viewers. If it is logistcally possibly for your needs and its free is there any reason not to? Yes.</p>
+
+<p>Specifically if you use jQuery on any of your sites more than likely you serve it with every page on your site, so if you want to have one less request for every page just use a free CDN to host it: <a href="http://code.google.com/apis/ajaxlibs/documentation/">Google</a> / <a href="http://weblogs.asp.net/scottgu/archive/2009/09/15/announcing-the-microsoft-ajax-cdn.aspx">Microsoft </a></p>
+
+<p>A recent blog post @ <a href="http://elijahmanor.com/webdevdotnet/post/Increase-Your-Website-Performance-by-Hosting-jQuery-with-a-CDN.aspx" target="_blank">elijahmanor.com</a> explains more why you would want to do such a thing. However, a commenter on that blog post has a good point&#8230; If I point my jquery resource at one of these cdn&#8217;s how do I know that the files are being served since it is all client side? What&#8217;s worse is how much functionality is broken if jquery is 404&#8217;d from that CDN?</p>
+
+<p>Well here&#8217;s a little trick that you can use verify that jQuery is loaded and how to handle it if not:</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2009/10/02/optimizing-website-peformance-with-a-cdn-jquery/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/06/04/make-any-webpage-printer-friendly-and-create-pdfs-on-the-fly/">Make Any Webpage Printer Friendly and Create Pdf&#8217;s on the Fly</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-04T23:44:39-07:00" pubdate data-updated="true">Jun 4<span>th</span>, 2009</time>
+        
+         | <a href="/2009/06/04/make-any-webpage-printer-friendly-and-create-pdfs-on-the-fly/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I just noticed this was added to my sociable plugin, but I have to say it is definitely a great concept and it is one of those things that makes you wonder why it took so long to come about. I would use this any day over some browser plugin, the less crap to fill up my browser that it wasn&#8217;t intended for the better. The coolest part is being able to remove any content in the url and print your modified version of the page.</p>
+
+<p><a href="http://www.printfriendly.com/">http://www.printfriendly.com/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/05/16/recent-computer-build/">Recent Computer Build</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-16T22:02:45-07:00" pubdate data-updated="true">May 16<span>th</span>, 2009</time>
+        
+         | <a href="/2009/05/16/recent-computer-build/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Just built a computer for a client and wanted to share my experience. Its been a while since I&#8217;ve built a complete system from scratch, but it is always enjoyable.</p>
+
+<p>Specs:</p>
+
+<pre>XP SP3 OEM
+(2) Western Digital Caviar SE 320GB 7200 RPM SATA 3.0Gb/s
+    (RAID 1 Array) - WD3200AAJS
+Western Digital Caviar Black 1TB 7200 RPM SATA 3.0Gb/s - WD1001FALS
+AMD Phenom 8450 Toliman 2.1GHz Socket AM2+ 95W Triple-Core - HD8450WCGHBOX
+CORSAIR 4GB (2 x 2GB) DDR2 800 Dual Channel Kit - TWIN2X4096-6400C5
+ASUS M4N78 Pro (On board Gefore 8300 Video [DVI / HDMI / D-SUB])
+LIAN LI PC-A05B (Includes a 550W PS)
+Price Tag: Roughly $775</pre>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2009/05/16/recent-computer-build/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/05/14/managing-linux-processes/">Quick Tip: Managing Linux Processes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-14T00:48:46-07:00" pubdate data-updated="true">May 14<span>th</span>, 2009</time>
+        
+         | <a href="/2009/05/14/managing-linux-processes/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Quick tip on managing linux processes, I always end up asking myself this and having to research how to do such things. So here are some quick tips to help you manage your linux processes. This is all done in <a href="http://en.wikipedia.org/wiki/Bash" target="_blank">bash</a>, I&#8217;m not sure what is different with the other shells so <a href="http://en.wiktionary.org/wiki/your_mileage_may_vary" target="_blank">ymmv</a>.</p>
+
+<p>Here is my sample script, just something that doesn&#8217;t end right away so I can use it for proof of concept:</p>
+
+<figure class='code'><figcaption><span>sleep.sh </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'><span class="k">while</span> <span class="o">[</span> 1 <span class="o">]</span>
+</span><span class='line'><span class="k">do</span>
+</span><span class='line'><span class="k">  </span>date
+</span><span class='line'>  <span class="nb">echo</span> <span class="s2">&quot;Sleeping 5 seconds&quot;</span>
+</span><span class='line'>  sleep 5
+</span><span class='line'><span class="k">done</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h2>Sending a process to the background</h2>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2009/05/14/managing-linux-processes/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/04/17/zero-user-interaction-captcha/">Zero User Interaction CAPTCHA - (Lamecaptcha)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-17T21:42:54-07:00" pubdate data-updated="true">Apr 17<span>th</span>, 2009</time>
+        
+         | <a href="/2009/04/17/zero-user-interaction-captcha/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This is not a new concept by far, however I want to share my fix for auto filling of forms on some of my sites. The issue arises from people creating bots/scripts that are intended to auto populate forms on site and submit them with the assumption that data does go somewhere and hopefully someone will click a bad link or buy some viagra or what not. This is most common when you have common web applications that have indentical registration forms or comment forms (like wordpress sites or forum software like phpbb). To solve this problem I&#8217;m sure you&#8217;ve see the wavy, crooked, colorful and always hard a hell to read text garbled that you have to enter before signing up to certain sites or buying tickets from ticket master. This form of &#8220;humanness test&#8221; if you will is refferred to as <a href="http://en.wikipedia.org/wiki/Captcha">CAPTCHA</a> (<strong>C</strong>ompletely <strong>A</strong>utomated <strong>P</strong>ublic <strong>T</strong>uring test to tell <strong>C</strong>omputers and <strong>H</strong>umans <strong>A</strong>part). The nice thing about implementing some form of captcha is that it will usually prevent most random attacks because most people don&#8217;t spend time directly targeting a single site, what they do is try to make it work with the most sites as possible to spread the spam as much as possible.</p>
+
+<p>The issue I have with most captcha systems is that they are a) annoying and b) they make me work harder than I need to be c) I end up having to squint my eyes and think hard to figure out what the f*ed up image is really saying. My ideal captcha would require 0 user interaction and somehow figureout that you are real.</p>
+
+<p>So I decided to create my &#8216;lamecaptcha&#8217;.</p>
+
+<p>On most of my forms I have basic javascript validation that says If field a is empty than alert saying field a is empty please fill it in and return false so the form doesn&#8217;t submit. However, all the bot has to do is fill in those required fields with garbage and then they put their html links/spam in my textbox or other field and submit away. But, I use this to my advantage. The bot says let me fill in all the text boxes available and hit submit.</p>
+
+<p>So I decided to create a hidden textbox that a normal user can&#8217;t see but a bot doesn&#8217;t know is hidden.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>(hidden: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">name=</span><span class="s">&quot;lamecaptcha&quot;</span> <span class="na">style=</span><span class="s">&quot;display:none;&quot;</span> <span class="nt">/&gt;</span> )
+</span><span class='line'>
+</span><span class='line'>(visible: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">name=</span><span class="s">&quot;text&quot;</span> <span class="nt">/&gt;</span> )
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(hidden: <input style="display:none;" name="lamecaptcha" type="text" /> )</p>
+
+<p>(visible: <input name="text" type="text" /> )</p>
+
+<p>Now when the form is submit all I have to do is make sure that the text box is empty and then I allow it to pass through:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;lamecaptcha&#39;</span><span class="p">])){</span>
+</span><span class='line'>       <span class="c1">//Do something because no human should fill a hidden text box</span>
+</span><span class='line'>       <span class="c1">//If the box was visible for some reason, they still shouldn&#39;t fill</span>
+</span><span class='line'>       <span class="c1">//any text box with out a label saying what should be in it</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>My &#8220;attacks&#8221; were few and far between but I have noticed that my database is no longer filled with garbage submissions and my clients are not complaining about getting spam from my server.
+I haven&#8217;t taken the time to figure it out but I would assume a lot of bots are also not running javascript, so another check might be to not allow form submission unless javascript is enabled (this can easily be defeated by a browser bot or there may be some way to fake out the check I don&#8217;t know) but it may be worth while to enhance the effectiveness of this.</p>
+
+<p>Again there are simple things like asking for 1+1 or type &#8220;here&#8221; in the box but I don&#8217;t want to make my users do more work because of the a-holes out there, what we need to do is make it more difficult for them. People spend so much time sifting through the spam and garbage it is discusting. Please share with me any ways you have created zero interaction captcha, I think as a service provider bogging down the user is the wrong way to go, and I&#8217;m suprised to see CAPTCHA systems become more difficult for the user than the bot.</p>
+
+<p>-Ak</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/03/11/new-host/">New Host</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-03-11T23:01:10-07:00" pubdate data-updated="true">Mar 11<span>th</span>, 2009</time>
+        
+         | <a href="/2009/03/11/new-host/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Everything has been successfully migrated to my new server @ slicehost. I can already see the speed improvements on the backend. Hopefully they show up on the front end as well!</p>
+
+<p>-Ak</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/02/28/php-strpos-search-for-text-in-a-string/">Php: (Strpos) Search for Text in a String</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-28T02:08:20-07:00" pubdate data-updated="true">Feb 28<span>th</span>, 2009</time>
+        
+         | <a href="/2009/02/28/php-strpos-search-for-text-in-a-string/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If you want to search for text inside a string but don&#8217;t need fancyness of regex, here lies strpos.</p>
+
+<p>I see a lot of posts online about people confused how strpos works and how to use it for searching for text in a string properly. First thing to note is that strpos() returns the index of the location of the string (not true if the string exists in part of the testing string).  So:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$string</span> <span class="o">=</span> <span class="s1">&#39;thedog&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nb">var_dump</span><span class="p">(</span><span class="nb">strpos</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span><span class="s1">&#39;dog&#39;</span><span class="p">));</span>
+</span><span class='line'><span class="nx">Output</span><span class="o">:</span> <span class="nx">int</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>How does this benefit you if you want to make sure that $string doesn&#8217;t contain dog:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$string</span> <span class="o">=</span> <span class="s1">&#39;thecat&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nb">var_dump</span><span class="p">(</span><span class="nb">strpos</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span><span class="s1">&#39;dog&#39;</span><span class="p">));</span>
+</span><span class='line'><span class="nx">Output</span><span class="o">:</span> <span class="nx">bool</span><span class="p">(</span><span class="k">false</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see the result was false, but sticking that strpos straight inside your if statement is bad and erroneous code&#8230; Here&#8217;s why:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$string</span> <span class="o">=</span> <span class="s1">&#39;thecat&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nb">strpos</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span><span class="s1">&#39;the&#39;</span><span class="p">)){</span>
+</span><span class='line'>    <span class="k">echo</span> <span class="s1">&#39;The is in the string&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>    <span class="k">echo</span> <span class="s1">&#39;The is not in the string&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">Output</span><span class="o">:</span> <span class="nx">The</span> <span class="nx">is</span> <span class="k">not</span> <span class="nx">in</span> <span class="nx">the</span> <span class="nx">string</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What?? Lets take a closer look:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$string</span> <span class="o">=</span> <span class="s1">&#39;thecat&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nb">var_dump</span><span class="p">(</span><span class="nb">strpos</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span><span class="s1">&#39;the&#39;</span><span class="p">));</span>
+</span><span class='line'><span class="nx">Output</span><span class="o">:</span> <span class="nx">int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So you see, the reason the if statement failed is because the if statement fails on a value of 0.</p>
+
+<p>The proper way to test with strpos is as follows:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$string</span> <span class="o">=</span> <span class="s1">&#39;themonkey&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nb">strpos</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span><span class="s1">&#39;monkey&#39;</span><span class="p">)</span> <span class="o">!==</span> <span class="k">false</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">echo</span> <span class="s1">&#39;There is a monkey in my string&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">Output</span><span class="o">:</span> <span class="nx">There</span> <span class="nx">is</span> <span class="nx">a</span> <span class="nx">monkey</span> <span class="nx">in</span> <span class="nx">my</span> <span class="nx">string</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>strpos() will return false if monkey is not in $string so the sure fire way to test to make sure it isn&#8217;t in there is to say that the return value is explictly not false.<em> !== confuse you? This tests for an actual boolean value of false. Other values make cause an if statement to fail (such as 0 mentioned above)</em></p>
+
+<p>(Read more about type comparison here. <a href="http://us2.php.net/manual/en/types.comparisons.php" target="_blank">http://us2.php.net/manual/en/types.comparisons.php</a>)</p>
+
+<p>If data types are making you say huh?? See here:  <a href="http://us3.php.net/manual/en/language.types.php" target="_blank">http://us3.php.net/manual/en/language.types.php</a>, I will post later briefly about php and data types,  if you have used Java than you live and die by data types,  but php has a very simple concept when it comes to data types which makes coding in general easy but relying on and full understanding your own code sometimes difficult.</p>
+
+<p>-Ak</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/02/12/parsing-a-csv-file-with-asp/">Parsing a CSV File With ASP</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-12T23:31:52-07:00" pubdate data-updated="true">Feb 12<span>th</span>, 2009</time>
+        
+         | <a href="/2009/02/12/parsing-a-csv-file-with-asp/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;m no fan of ASP especially after having to work with it&#8230; but regardless I had to.</p>
+
+<p>Problem:</p>
+
+<p>I don&#8217;t want to try and get a database running for a simple task that would require one table with few rows, but I also didn&#8217;t want to jump in and edit html when one small change had to take place.</p>
+
+<p>Solution:</p>
+
+<p>Build a csv file and use asp to parse it.</p>
+
+<p>It still doesn&#8217;t make much sense to me but what it does basically pushes all the data into one giant line like (a1,b1,c1,d1,a2,b2,c2,d2) and it counts the number of columns and rows you have. The for loop then uses these number to put it into a multi-dimensional array based off of (row,column)
+Here is the code:</p>
+
+<pre>csv_to_read="csvfile.csv"
+set fso = createobject("scripting.filesystemobject")
+set act = fso.opentextfile(server.mappath(csv_to_read))
+imported_text = act.readline
+imported_text = replace(imported_text,chr(13),",")
+imported_text = replace(imported_text,chr(34),"")
+split_text=split(imported_text,",")
+num_imported=ubound(split_text)+1
+total_imported_text = act.readall
+total_imported_text = replace(total_imported_text,chr(13),",")
+total_imported_text = replace(total_imported_text,chr(34),"")
+total_split_text=split(total_imported_text,",")
+total_num_imported=ubound(total_split_text)
+trows = (total_num_imported/ (num_imported)-1)
+'Have to pre-initialize the size of the array
+Dim array(10,25)
+count=0
+for column = 0 to trows
+    for row = 0 to num_imported -1
+    array(row,column) = total_split_text(count)
+    count=count+1
+    next
+Next</pre>
+
+
+<p>To pull a single value out of that (passed via url like file.asp?z=7) I do the following:</p>
+
+<pre>input=CInt(Request.QueryString("z"))
+'Fill up the variables I need until they are what was actually passed in url and exit
+For i = 0 to trows
+    id = CInt(Replace(array(0,i),chr(10),""))
+    title = array(1,i)
+    price = array(2,i)
+    If id = input Then
+        Exit For
+    End If
+Next
+
+'Now I go on my merry way and use the variables as needed:
+    &lt;h1&gt;&lt;% Response.Write(title) %&gt;&lt;/h1&gt;
+    &lt;h2&gt;&lt;% Response.Write(price) %&gt;&lt;/h2&gt;</pre>
+
+
+<p>Conclusion</p>
+
+<p>This wasn&#8217;t quick to figure out but it is dirty and I only wrote it because I have 0 asp knowledge and did not want to try and learn how to connect asp to a MySQL or SQL Server at GoDaddy (not worth the trouble, and gladly I&#8217;ll be moving this site to my own server soon enough)</p>
+
+<p>One thing I can&#8217;t argue with in a situation like this is if it&#8217;s not broken, don&#8217;t fix it!</p>
+
+<p>Another intersted bit of code I had to figure out to do in asp was to always print the last day of the current month. I will post that code soon.</p>
+
+<p>-Ak</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/4/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/2/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/06/14/php-basics-phps-list/">PHP Basics: php&#8217;s list()</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/10/quick-tip-rawurlencode-in-twig/">Quick Tip: rawurlencode in Twig</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/01/18/quicktip-read-from-stdin-in-php/">Quicktip: Read from stdin in PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/28/quicktip-add-conditionals-in-a-sql-where-clause/">Quicktip: Add conditionals in a WHERE clause</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/07/github-gist-shortcode-wordpress-plugin-update/">GitHub Gist Shortcode Wordpress Plugin Update</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/aknosis">@aknosis</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'aknosis',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("aknosis", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/aknosis" class="twitter-follow-button" data-show-count="false">Follow @aknosis</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Paul 'aknosis' Giberson -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'aknosis';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

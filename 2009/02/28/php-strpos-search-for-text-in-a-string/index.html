@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Php: (strpos) Search for text in a string - aknosis.com</title>
+  <meta name="author" content="Paul 'aknosis' Giberson">
+
+  
+  <meta name="description" content="If you want to search for text inside a string but don&#8217;t need fancyness of regex, here lies strpos. I see a lot of posts online about people &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://aknosis.com/2009/02/28/php-strpos-search-for-text-in-a-string/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/aknosis" rel="alternate" title="aknosis.com" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11096805-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">aknosis.com</a></h1>
+  
+    <h2>webdev && sysadmin quips, tips, articles + more</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/aknosis" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:aknosis.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Php: (Strpos) Search for Text in a String</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-28T02:08:20-07:00" pubdate data-updated="true">Feb 28<span>th</span>, 2009</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>If you want to search for text inside a string but don&#8217;t need fancyness of regex, here lies strpos.</p>
+
+<p>I see a lot of posts online about people confused how strpos works and how to use it for searching for text in a string properly. First thing to note is that strpos() returns the index of the location of the string (not true if the string exists in part of the testing string).  So:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$string</span> <span class="o">=</span> <span class="s1">&#39;thedog&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nb">var_dump</span><span class="p">(</span><span class="nb">strpos</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span><span class="s1">&#39;dog&#39;</span><span class="p">));</span>
+</span><span class='line'><span class="nx">Output</span><span class="o">:</span> <span class="nx">int</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>How does this benefit you if you want to make sure that $string doesn&#8217;t contain dog:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$string</span> <span class="o">=</span> <span class="s1">&#39;thecat&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nb">var_dump</span><span class="p">(</span><span class="nb">strpos</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span><span class="s1">&#39;dog&#39;</span><span class="p">));</span>
+</span><span class='line'><span class="nx">Output</span><span class="o">:</span> <span class="nx">bool</span><span class="p">(</span><span class="k">false</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see the result was false, but sticking that strpos straight inside your if statement is bad and erroneous code&#8230; Here&#8217;s why:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$string</span> <span class="o">=</span> <span class="s1">&#39;thecat&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nb">strpos</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span><span class="s1">&#39;the&#39;</span><span class="p">)){</span>
+</span><span class='line'>    <span class="k">echo</span> <span class="s1">&#39;The is in the string&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>    <span class="k">echo</span> <span class="s1">&#39;The is not in the string&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">Output</span><span class="o">:</span> <span class="nx">The</span> <span class="nx">is</span> <span class="k">not</span> <span class="nx">in</span> <span class="nx">the</span> <span class="nx">string</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What?? Lets take a closer look:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$string</span> <span class="o">=</span> <span class="s1">&#39;thecat&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nb">var_dump</span><span class="p">(</span><span class="nb">strpos</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span><span class="s1">&#39;the&#39;</span><span class="p">));</span>
+</span><span class='line'><span class="nx">Output</span><span class="o">:</span> <span class="nx">int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So you see, the reason the if statement failed is because the if statement fails on a value of 0.</p>
+
+<p>The proper way to test with strpos is as follows:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$string</span> <span class="o">=</span> <span class="s1">&#39;themonkey&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nb">strpos</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span><span class="s1">&#39;monkey&#39;</span><span class="p">)</span> <span class="o">!==</span> <span class="k">false</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">echo</span> <span class="s1">&#39;There is a monkey in my string&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">Output</span><span class="o">:</span> <span class="nx">There</span> <span class="nx">is</span> <span class="nx">a</span> <span class="nx">monkey</span> <span class="nx">in</span> <span class="nx">my</span> <span class="nx">string</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>strpos() will return false if monkey is not in $string so the sure fire way to test to make sure it isn&#8217;t in there is to say that the return value is explictly not false.<em> !== confuse you? This tests for an actual boolean value of false. Other values make cause an if statement to fail (such as 0 mentioned above)</em></p>
+
+<p>(Read more about type comparison here. <a href="http://us2.php.net/manual/en/types.comparisons.php" target="_blank">http://us2.php.net/manual/en/types.comparisons.php</a>)</p>
+
+<p>If data types are making you say huh?? See here:  <a href="http://us3.php.net/manual/en/language.types.php" target="_blank">http://us3.php.net/manual/en/language.types.php</a>, I will post later briefly about php and data types,  if you have used Java than you live and die by data types,  but php has a very simple concept when it comes to data types which makes coding in general easy but relying on and full understanding your own code sometimes difficult.</p>
+
+<p>-Ak</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul 'aknosis' Giberson</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-28T02:08:20-07:00" pubdate data-updated="true">Feb 28<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programming/'>Programming</a>, <a class='category' href='/blog/categories/quick-tips/'>Quick Tips</a>, <a class='category' href='/blog/categories/php/'>php</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://aknosis.com/2009/02/28/php-strpos-search-for-text-in-a-string/" data-via="aknosis" data-counturl="http://aknosis.com/2009/02/28/php-strpos-search-for-text-in-a-string/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2009/02/12/parsing-a-csv-file-with-asp/" title="Previous Post: Parsing a CSV file with ASP">&laquo; Parsing a CSV file with ASP</a>
+      
+      
+        <a class="basic-alignment right" href="/2009/03/11/new-host/" title="Next Post: New Host">New Host &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/06/14/php-basics-phps-list/">PHP Basics: php's list()</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/10/quick-tip-rawurlencode-in-twig/">Quick Tip: rawurlencode in Twig</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/01/18/quicktip-read-from-stdin-in-php/">Quicktip: Read from stdin in PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/28/quicktip-add-conditionals-in-a-sql-where-clause/">Quicktip: Add conditionals in a WHERE clause</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/07/github-gist-shortcode-wordpress-plugin-update/">GitHub Gist Shortcode Wordpress Plugin Update</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/aknosis">@aknosis</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'aknosis',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("aknosis", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/aknosis" class="twitter-follow-button" data-show-count="false">Follow @aknosis</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Paul 'aknosis' Giberson -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'aknosis';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://aknosis.com/2009/02/28/php-strpos-search-for-text-in-a-string/';
+        var disqus_url = 'http://aknosis.com/2009/02/28/php-strpos-search-for-text-in-a-string/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

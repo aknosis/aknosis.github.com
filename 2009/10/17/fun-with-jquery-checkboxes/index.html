@@ -1,0 +1,588 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fun with jQuery - Checkboxes!!! - aknosis.com</title>
+  <meta name="author" content="Paul 'aknosis' Giberson">
+
+  
+  <meta name="description" content="$.noConflict(); // Code that uses other library's $ can follow here. Another day with jQuery, this time we are talking about checkboxes. Just like I &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://aknosis.com/2009/10/17/fun-with-jquery-checkboxes/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/aknosis" rel="alternate" title="aknosis.com" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11096805-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">aknosis.com</a></h1>
+  
+    <h2>webdev && sysadmin quips, tips, articles + more</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/aknosis" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:aknosis.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Fun With jQuery - Checkboxes!!!</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-17T22:43:15-07:00" pubdate data-updated="true">Oct 17<span>th</span>, 2009</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+
+
+<script type="text/javascript">
+  $.noConflict();
+  // Code that uses other library's $ can follow here.
+</script>
+
+
+<p>Another day with jQuery, this time we are talking about checkboxes.</p>
+
+<p>Just like I stated in my <a href="/2009/10/15/more-jquery-fun-auto-populating-a-select-box/">previous post</a> about select boxes, jQuery and checkbox <em>integration</em>, if you will, isn&#8217;t cut and dry but damn near close. So how can jQuery assist with checkboxes? Lots of ways, here are a few examples to keep you entertained.</p>
+
+<p>Try and manually select a checkbox and it will still toggle them correctly (turn them off it they are on and vice versa).</p>
+
+<script>
+function toggleChecks(){ jQuery('input[type=checkbox]').each( function(){ if(jQuery(this).is(':checked')){ jQuery(this).removeAttr('checked'); }else{ jQuery(this).attr('checked',true); } }); }
+</script>
+
+
+<table border="0">
+<tbody>
+<tr>
+<td rowspan="2"><input class="button" onclick="toggleChecks();" type="button" value="Toggle Checks" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+</tr>
+<tr>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+</tr>
+</tbody></table>
+
+
+<h3>jQuery selector for checkboxes</h3>
+
+
+<p>Just like any input you can choose your checkbox(es) with any standard selector.</p>
+
+<ul>
+    <li><strong>By Class</strong>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">//Selector</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.cb_class&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- Input Html --&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">class=</span><span class="s">&quot;cb_class&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</li>
+    <li><strong>By Id</strong>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Selector</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#cb&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- Input Html --&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">id=</span><span class="s">&quot;cb&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</li>
+<li><strong>By tag and attribute</strong>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Selector</span>
+</span><span class='line'> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;input[type=checkbox]&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="c1">//Note: This would select all checkboxes</span>
+</span><span class='line'><span class="c1">//(same code in the Toggle Checks button above)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- Input Html --&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</li>
+<li><strong>By tag and attribute</strong>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Selector</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;input[name=checkBoxname]&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- Input Html --&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">name=</span><span class="s">&quot;checkBoxname&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</li>
+</ul>
+
+
+<!--more-->
+
+
+<h3>How to tell if a check box is checked?</h3>
+
+
+<p><input id="cb1" class="cb" type="checkbox" />
+<input class="button" onclick="if(jQuery('#cb1').is(':checked')){alert('It is checked');}else{alert('Not checked');}" type="button" value="Is this checkbox checked?" /></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">if</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#cb1&#39;</span><span class="p">).</span><span class="nx">is</span><span class="p">(</span><span class="s1">&#39;:checked&#39;</span><span class="p">)){</span> <span class="c1">//Check if checkbox is checked and alert the result</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;It is checked&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Not checked&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h3>How to check and uncheck a checkbox</h3>
+
+
+<p>
+There is no magical built-in function to check and uncheck but use of standard jQuery functions will accomplishes the same task.
+</p>
+
+
+<p><input id="cb2" class="cb" type="checkbox" />
+<input class="button" onclick="jQuery('#cb2').attr('checked',true);" type="button" value="Check Checkbox" />
+<input class="button" onclick="jQuery('#cb2').attr('checked',false);" type="button" value="Uncheck Checkbox" /></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Check Code</span>
+</span><span class='line'><span class="c1">//This just adds the checked attribute to the input tag</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#cb2&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;checked&#39;</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+</span><span class='line'><span class="c1">//Uncheck Code</span>
+</span><span class='line'><span class="c1">//This just removes the checked attribute from the input tag</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#cb2&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;checked&#39;</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
+</span><span class='line'><span class="c1">//Can also use this:</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#cb2&#39;</span><span class="p">).</span><span class="nx">removeAttr</span><span class="p">(</span><span class="s1">&#39;checked&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h3>Determine the value of checked boxes</h3>
+
+
+<p>
+If you have a value assigned to your checked boxes all you need to do is use the .val() function to return the value.
+</p>
+
+
+<p><input id="cb3" class="cb" type="checkbox"  value="Checkbox 3" />
+<input class="button" onclick="alert('Value: '+jQuery('#cb3').val());" type="button" value="What is the value?" /></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">&quot;cb3&quot;</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">value=</span><span class="s">&quot;Checkbox 3&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Value: &#39;</span><span class="o">+</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#cb3&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h3> Full Example </h3>
+
+
+<p>
+This function will get all the values of the checked checkboxes, add the results and display them.
+</p>
+
+
+<script>
+function calcChecked(){
+var total = 0;
+var str = '0';
+    jQuery('#table :checked').each(
+function(){
+  var val = parseInt(jQuery(this).val());
+ total += val;
+str += ' + '+val;
+jQuery(this).removeAttr('checked');
+}
+);
+str += ' = '+total
+jQuery('#updater').append('<div style="display:none">'+str+'</div>');
+jQuery('#updater div:last').slideDown('slow');
+}
+</script>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">calcChecked</span><span class="p">(){</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">total</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span><span class="p">;</span>
+</span><span class='line'> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#table :checked&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span>
+</span><span class='line'><span class="c1">//Execute this function for each &#39;:checked&#39; element in the table</span>
+</span><span class='line'><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">val</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span> <span class="c1">//Get integer value</span>
+</span><span class='line'> <span class="nx">total</span> <span class="o">+=</span> <span class="nx">val</span><span class="p">;</span> <span class="c1">//Add to the total</span>
+</span><span class='line'><span class="nx">str</span> <span class="o">+=</span> <span class="s1">&#39; + &#39;</span><span class="o">+</span><span class="nx">val</span><span class="p">;</span> <span class="c1">//Add to the equation string</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">removeAttr</span><span class="p">(</span><span class="s1">&#39;checked&#39;</span><span class="p">);</span> <span class="c1">//Uncheck the checkbox</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'><span class="nx">str</span> <span class="o">+=</span> <span class="s1">&#39; = &#39;</span><span class="o">+</span><span class="nx">total</span> <span class="c1">//Finalize the equation</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#updater&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;&lt;div style=&quot;display:none&quot;&gt;&#39;</span><span class="o">+</span><span class="nx">str</span><span class="o">+</span><span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">);</span> <span class="c1">//Add the string to the table</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#updater div:last&#39;</span><span class="p">).</span><span class="nx">slideDown</span><span class="p">(</span><span class="s1">&#39;slow&#39;</span><span class="p">);</span> <span class="c1">//Use some flare to make it show up</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<table border="0" id="table">
+<tbody>
+<tr>
+<td rowspan="2">
+<input class="button" onclick="calcChecked();" type="button" value="Calculate Checked" />
+<div id="updater">
+
+</div>
+</td>
+<td><input class="cb" type="checkbox" value="1" />1</td>
+<td><input class="cb" type="checkbox" value="2" />2</td>
+<td><input class="cb" type="checkbox" value="3" />3</td>
+<td><input class="cb" type="checkbox" value="4" />4</td>
+<td><input class="cb" type="checkbox" value="5" />5</td>
+<td><input class="cb" type="checkbox" value="6" />6</td>
+</tr>
+<tr>
+<td><input class="cb" type="checkbox" value="7" />7</td>
+<td><input class="cb" type="checkbox" value="8" />8</td>
+<td><input class="cb" type="checkbox" value="9" />9</td>
+<td><input class="cb" type="checkbox" value="10" />10</td>
+<td><input class="cb" type="checkbox" value="11" />11</td>
+<td><input class="cb" type="checkbox" value="12" />12</td>
+</tr>
+</tbody></table>
+
+
+<p>Need help with something else? Just ask, post a comment and I&#8217;ll help you out.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul 'aknosis' Giberson</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-17T22:43:15-07:00" pubdate data-updated="true">Oct 17<span>th</span>, 2009</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://aknosis.com/2009/10/17/fun-with-jquery-checkboxes/" data-via="aknosis" data-counturl="http://aknosis.com/2009/10/17/fun-with-jquery-checkboxes/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2009/10/15/more-jquery-fun-auto-populating-a-select-box/" title="Previous Post: More jQuery Fun - Auto Populating a Select Box">&laquo; More jQuery Fun - Auto Populating a Select Box</a>
+      
+      
+        <a class="basic-alignment right" href="/2009/10/19/a-ton-of-web-developer-cheat-sheets/" title="Next Post: A ton of Web Developer Cheat Sheets">A ton of Web Developer Cheat Sheets &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/06/14/php-basics-phps-list/">PHP Basics: php's list()</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/10/quick-tip-rawurlencode-in-twig/">Quick Tip: rawurlencode in Twig</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/01/18/quicktip-read-from-stdin-in-php/">Quicktip: Read from stdin in PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/28/quicktip-add-conditionals-in-a-sql-where-clause/">Quicktip: Add conditionals in a WHERE clause</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/07/github-gist-shortcode-wordpress-plugin-update/">GitHub Gist Shortcode Wordpress Plugin Update</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/aknosis">@aknosis</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'aknosis',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("aknosis", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/aknosis" class="twitter-follow-button" data-show-count="false">Follow @aknosis</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Paul 'aknosis' Giberson -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'aknosis';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://aknosis.com/2009/10/17/fun-with-jquery-checkboxes/';
+        var disqus_url = 'http://aknosis.com/2009/10/17/fun-with-jquery-checkboxes/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

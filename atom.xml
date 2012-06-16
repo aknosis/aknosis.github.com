@@ -1,0 +1,1358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[aknosis.com]]></title>
+  <link href="http://aknosis.com/atom.xml" rel="self"/>
+  <link href="http://aknosis.com/"/>
+  <updated>2012-06-16T01:01:39-07:00</updated>
+  <id>http://aknosis.com/</id>
+  <author>
+    <name><![CDATA[Paul 'aknosis' Giberson]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[PHP Basics: php's list()]]></title>
+    <link href="http://aknosis.com/2012/06/14/php-basics-phps-list/"/>
+    <updated>2012-06-14T19:33:00-07:00</updated>
+    <id>http://aknosis.com/2012/06/14/php-basics-phps-list</id>
+    <content type="html"><![CDATA[<p>If you haven&#8217;t used <a href="http://php.net/manual/en/function.list.php">list()</a> before, consider it a dead simple way to map from a numerically indexed
+array to any number of variables.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$myArray</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;yellow&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">list</span><span class="p">(</span><span class="nv">$red</span><span class="p">,</span><span class="nv">$blue</span><span class="p">,</span><span class="nv">$yellow</span><span class="p">)</span> <span class="o">=</span> <span class="nv">$myArray</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//yields:</span>
+</span><span class='line'><span class="c1">// $red = &#39;red&#39;</span>
+</span><span class='line'><span class="c1">// $blue = &#39;blue&#39;</span>
+</span><span class='line'><span class="c1">// $yellow = &#39;yellow&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Consider sometimes that you only want the nth value of the array:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$myArray</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;white&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//I used to do:</span>
+</span><span class='line'><span class="k">list</span><span class="p">(</span><span class="nv">$notused</span><span class="p">,</span><span class="nv">$notused</span><span class="p">,</span><span class="nv">$notused</span><span class="p">,</span><span class="nv">$green</span><span class="p">,</span><span class="nv">$white</span><span class="p">)</span> <span class="o">=</span> <span class="nv">$myArray</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//yields:</span>
+</span><span class='line'><span class="c1">//$notused = &#39;yellow&#39;</span>
+</span><span class='line'><span class="c1">//$green = &#39;green&#39;</span>
+</span><span class='line'><span class="c1">//$white = &#39;white&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//but I found a trick where you don&#39;t </span>
+</span><span class='line'><span class="c1">//have to provide any variables at all</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">list</span><span class="p">(,,,,</span><span class="nv">$green</span><span class="p">,</span><span class="nv">$white</span><span class="p">)</span> <span class="o">=</span> <span class="nv">$myArray</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//yields:</span>
+</span><span class='line'><span class="c1">//$green = &#39;green&#39;</span>
+</span><span class='line'><span class="c1">//$white = &#39;white&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Quick Tip: rawurlencode in Twig]]></title>
+    <link href="http://aknosis.com/2012/04/10/quick-tip-rawurlencode-in-twig/"/>
+    <updated>2012-04-10T06:04:00-07:00</updated>
+    <id>http://aknosis.com/2012/04/10/quick-tip-rawurlencode-in-twig</id>
+    <content type="html"><![CDATA[<p>I&#8217;ve been working on modifying listserv digest emails at work and porting them to Twig templates. The fun part was trying to create mailto: links that mimicked hitting reply (auto populating the subject with RE: [post title]).</p>
+
+<p>The problem with just jamming the title in to the ?subject= param is all sorts of fun like spacing and special characters. Turns out that you can use a Twig filter to urlencode a variable: <a href="http://twig.sensiolabs.org/doc/filters/url_encode.html">Twig - urlencode filter</a></p>
+
+<p>Under the hood Twig&#8217;s urlencode filter uses php&#8217;s <a href="http://us.php.net/manual/en/function.urlencode.php">urlencode</a>. If you use the urlencode filter you may notice one slight issue, spaces are converted to + instead of %20. According php.net the solution here is to use rawurlencode instead of urlenccode. Well how do you go about calling the rawurlencode filter if it doesn&#8217;t exist?</p>
+
+<p>RTFS! I couldn&#8217;t seem to find out why rawurlencode wasn&#8217;t an available filter and really didn&#8217;t want to roll my own, it turns out if you <a href="https://github.com/fabpot/Twig/blob/master/lib/Twig/Extension/Core.php#L475"><em>read the source</em></a> you fill find an nice undocumented feature. Instead of creating a new filter for rawurlencode all you need to do is pass true to the urlencode filter!</p>
+
+<p>Example:</p>
+
+<div><script src='https://gist.github.com/2347191.js?file='></script>
+<noscript><pre><code>{# varaible is 'Hello There' #}
+
+{{ variable|url_encode() }} {# Hello+There #}
+
+{# If you want to use rawurlencode what do you do? #}
+
+{{ variable|url_encode(true) }} {# Hello%20There #}
+
+</code></pre></noscript></div>
+
+
+<p>Next step is to make a pull request and update the docs to be more verbose!</p>
+
+<p>Enjoy.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Quicktip: Read from stdin in PHP]]></title>
+    <link href="http://aknosis.com/2012/01/18/quicktip-read-from-stdin-in-php/"/>
+    <updated>2012-01-18T17:06:36-07:00</updated>
+    <id>http://aknosis.com/2012/01/18/quicktip-read-from-stdin-in-php</id>
+    <content type="html"><![CDATA[<div><script src='https://gist.github.com/1636629.js?file='></script>
+<noscript><pre><code>&lt;?php
+/**
+ * Usage:
+ * $answer = prompt(&quot;What is your quest?&quot;);
+ * echo &quot;Answer: $answer&quot;;
+ * 
+ * Outputs:
+ * What is your quest?
+ * I seek the holy grail!
+ * Answer: I seek the holy grail!
+ */
+function prompt($msg){
+    echo &quot;$msg\n&quot;;
+    return trim(fgets(STDIN));
+}</code></pre></noscript></div>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Quicktip: Add conditionals in a WHERE clause]]></title>
+    <link href="http://aknosis.com/2011/10/28/quicktip-add-conditionals-in-a-sql-where-clause/"/>
+    <updated>2011-10-28T14:57:24-07:00</updated>
+    <id>http://aknosis.com/2011/10/28/quicktip-add-conditionals-in-a-sql-where-clause</id>
+    <content type="html"><![CDATA[<div><script src='https://gist.github.com/1323675.js?file='></script>
+<noscript><pre><code>-- Example of how to include an if conditional in a where clause
+
+-- We only want rows where a = 1 or 2 but only a = 2 if b = 4
+-- table structure: 
+-- [ a | b ]
+--  1   4
+--  2   4
+--  1   5
+--  3   9
+--  2   7
+--  2   33
+
+SELECT * FROM table 
+ WHERE a IN (1,2) -- a is 1 or 2
+ AND (a &lt;&gt; 2 OR a = 2 AND b = 4) -- a isn't 2 OR it is 2 and b is 4</code></pre></noscript></div>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GitHub Gist Shortcode Wordpress Plugin Update]]></title>
+    <link href="http://aknosis.com/2011/10/07/github-gist-shortcode-wordpress-plugin-update/"/>
+    <updated>2011-10-07T13:15:00-07:00</updated>
+    <id>http://aknosis.com/2011/10/07/github-gist-shortcode-wordpress-plugin-update</id>
+    <content type="html"><![CDATA[<p>If you use the GitHub Gist Shortcode Wordpress plugin, which I do, to embed your gists in your blog you&#8217;ll want to update the code to the latests.</p>
+
+<p>I noticed the other day that all requests were getting permanently redirected from http to https. The fix is very minor.</p>
+
+<p><a href="https://github.com/aknosis/wordpress-github-gist-shortcode-plugin/commit/badb63e2ac7ce1a5ff5141ac49a58d869c55a84d#github-gist-shortcode-plugin.php">https://github.com/aknosis/wordpress-github-gist-shortcode-plugin/commit/badb63e2ac7ce1a5ff5141ac49a58d869c55a84d#github-gist-shortcode-plugin.php</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Quicktip: Simple File Based Cache Mechanism in PHP]]></title>
+    <link href="http://aknosis.com/2011/09/02/quicktip-simple-file-based-cache-mechanism-in-php/"/>
+    <updated>2011-09-02T10:32:16-07:00</updated>
+    <id>http://aknosis.com/2011/09/02/quicktip-simple-file-based-cache-mechanism-in-php</id>
+    <content type="html"><![CDATA[<p>Simple, yet effective enough, this is all the code I used to create caching for a feed retrieval to speed up subsequent requests.</p>
+
+<p>Enjoy!</p>
+
+<div><script src='https://gist.github.com/1189222.js?file='></script>
+<noscript><pre><code>&lt;?php
+/**
+ * @param string $uniqID - Anything that would be unique to what you are caching (url/database query) 
+ * @param integer $expireSeconds - How old is too old that we refresh the cache
+ */
+function _getFromCache($uniqID,$expireSeconds){
+    $uniq = '/&lt;path to your cache storage folder&gt;/'.md5($uniqID);
+    if(file_exists($uniq) &amp;&amp; time() - filemtime($uniq) &lt;= $expireSeconds){
+        return '&lt;process cached file&gt;($uniq)';
+    }
+    $somethingToCache = '&lt;standard execution to get item&gt;($uniqID)';
+    file_put_contents($uniq,$somethingToCache); //You will want to implement __toString() if this is an object or maybe you can just serialize it
+    return $somethingToCache;
+}</code></pre></noscript></div>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Using jQuery to rewrite relative urls to absolute urls - [revisited]]]></title>
+    <link href="http://aknosis.com/2011/07/17/using-jquery-to-rewrite-relative-urls-to-absolute-urls-revisited/"/>
+    <updated>2011-07-17T00:38:03-07:00</updated>
+    <id>http://aknosis.com/2011/07/17/using-jquery-to-rewrite-relative-urls-to-absolute-urls-revisited</id>
+    <content type="html"><![CDATA[<p>After scanning my site stats and realizing that an old post about <a title="Using jQuery to rewrite all relative urls" href="http://aknosis.com/2009/02/11/using-jquery-to-rewrite-all-relative-urls/">how to rewrite all the relative urls on a page with jQuery</a> was one of my most visited, I decided to review the code and noticed it could be improved. My knowledge of JavaScript and jQuery has improved immensely since that previous post and this revisit is an attempt to improve upon it.</p>
+
+<h4>Problem: Need to change all the relative urls on a page and replace with an absolute url.</h4>
+
+
+<p>Different from my other post I&#8217;m going to separate the concerns of this problem: 1 being selecting only the links that are relative and not inline or mailto: links; 2 modifying the href.</p>
+
+<h4>Selecting the links on a page</h4>
+
+
+<p>The jQuery standard $(&#8216;a&#8217;) will only solve half our problem because we only want links that are relative. There are several different methods we can use with jQuery to get exactly what you need, however first take into context what your page actually looks like. You may be able to save some time if your page has relatively few links, on the other hand if you have a page with hundreds of links you will need to chose your <a href="http://api.jquery.com/category/selectors/">selectors</a> wisely. To make the best and most informed decision, I suggest you test your various use cases @ <a href="http://jsperf.com/">http://jsperf.com/</a>.</p>
+
+<p>Here are three that I came up with:</p>
+
+<figure class='code'><figcaption><span>jQuery Selectors  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="s1">&#39;[href^=&quot;http&quot;],[href^=&quot;https&quot;],[href^=&quot;mailto:&quot;],[href^=&quot;#&quot;]&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a:not([href^=&quot;http:&quot;],[href^=&quot;https:&quot;],[href^=&quot;mailto:&quot;],[href^=&quot;#&quot;])&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a:not([href*=&quot;://&quot;],[href^=&quot;mailto:&quot;],[href^=&quot;#&quot;])&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!--more-->
+
+
+<p>I&#8217;m going to use the first one just because it is a little bit more succinct. Now that we have all of the relative links on the page we need modify the href for each one.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'><span class="c1">//Use jQuerys .each() method to iterate over each link</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="s1">&#39;[href^=&quot;http&quot;],[href^=&quot;https&quot;],[href^=&quot;mailto:&quot;],[href^=&quot;#&quot;]&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'><span class="c1">//Use .attr() to modify the href, when you provide a callback function</span>
+</span><span class='line'><span class="c1">//the arguments passed are the attribute index and its value</span>
+</span><span class='line'>            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'><span class="c1">//This fix solves the problem when you aren&#39;t at the root level of a site</span>
+</span><span class='line'><span class="c1">// e.g. if you are at site.com/page1/ and the link href is &quot;do/something&quot;</span>
+</span><span class='line'><span class="c1">// we need to make sure the absolute url becomes newsite.com/page1/do/something</span>
+</span><span class='line'><span class="c1">// if we just prepended the new domain we would actually get newsite.comdo/something</span>
+</span><span class='line'><span class="c1">// which obviously wouldn&#39;t work</span>
+</span><span class='line'>                <span class="k">if</span> <span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">!==</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="nx">value</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span> <span class="o">+</span> <span class="nx">value</span><span class="p">;</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'><span class="c1">//When you return from the callback function for .attr() it will set the attribute</span>
+</span><span class='line'><span class="c1">//to this new value.</span>
+</span><span class='line'><span class="c1">//We don&#39;t use a trailing slash on mynewurl.com because it will already exist if</span>
+</span><span class='line'><span class="c1">//the href starts with a / or it will be part of window.location.pathname</span>
+</span><span class='line'>                <span class="k">return</span> <span class="s2">&quot;http://mynewurl.com&quot;</span> <span class="o">+</span> <span class="nx">value</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">});</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Live example below, hover over the links to see the urls before, click the button and check them again, all of the relative links will become absolute with the new domain.</p>
+
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/kWrjr/embedded/js,html,result/light/"></iframe>
+
+
+<p></p>
+
+<p>Thanks for reading my post, I hope it was helpful.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Quicktip: Random string in unix]]></title>
+    <link href="http://aknosis.com/2011/07/12/quicktip-random-string-in-unix/"/>
+    <updated>2011-07-12T15:07:11-07:00</updated>
+    <id>http://aknosis.com/2011/07/12/quicktip-random-string-in-unix</id>
+    <content type="html"><![CDATA[<div><script src='https://gist.github.com/1079084.js?file='></script>
+<noscript><pre><code>echo `&lt;/dev/urandom tr -dc A-Za-z0-9 | head -c8`</code></pre></noscript></div>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Quicktip: Check if a class constant exists in PHP]]></title>
+    <link href="http://aknosis.com/2011/06/29/check-if-a-class-constant-exists-in-php/"/>
+    <updated>2011-06-29T09:55:19-07:00</updated>
+    <id>http://aknosis.com/2011/06/29/check-if-a-class-constant-exists-in-php</id>
+    <content type="html"><![CDATA[<div><script src='https://gist.github.com/1054257.js?file='></script>
+<noscript><pre><code>&lt;?php
+if(defined('className::CONSTANT_NAME')){
+  //defined
+}else{
+  //not defined
+}</code></pre></noscript></div>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery Pluginifier - Plugin Instantiator & Plugin Boilerplate]]></title>
+    <link href="http://aknosis.com/2011/05/11/jquery-pluginifier-jquery-plugin-instantiator-boilerplate/"/>
+    <updated>2011-05-11T06:01:58-07:00</updated>
+    <id>http://aknosis.com/2011/05/11/jquery-pluginifier-jquery-plugin-instantiator-boilerplate</id>
+    <content type="html"><![CDATA[<p>After coming across a recent blog post on <a href="http://stefangabos.ro/jquery/jquery-plugin-boilerplate/">jQuery Plugin Boilerplate</a> code it reminded me a few months back when I was looking at the best method for authoring plugins for use at work. After much googling and trial and error I finally came to grips with something and below is the end result.</p>
+
+<p>The code in the <a href="http://stefangabos.ro/jquery/jquery-plugin-boilerplate/">jQuery Plugin Boilerplate</a> blog post is very similar to the <a href="http://docs.jquery.com/Plugins/Authoring">plugin authoring page</a> in the jQuery Documentation. While they are both good resources, I think they favor single plugins and may potentially lead developers down a path of duplicate code. Similar to jQuery UI&#8217;s $.widget what I want to push here is a snippet of code that can transform your code into a &#8220;jQuery Plugin&#8221; (is there a real definition of this somewhere?).</p>
+
+<!--more-->
+
+
+<p><span style="font-size: 20px; font-weight: bold;">The Meat - Pluginifier (Instantiator)</span></p>
+
+<p>The plugin instantiator function creates the prototype plugin function using jQuery.fn, inside that function the code will handle creating/storing/retrieving plugin instances and calling methods on plugins that are already created. This code is meant for reuse for n amount of plugins you create, there is no need to rewrite this block of code (or something similar) for each plugin you have.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">//Wrap in a closure to secure $ for jQuery</span>
+</span><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">(</span> <span class="nx">$</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//name is the name of your plugin</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">pluginifier</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">name</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//Create the prototype function for the plugin</span>
+</span><span class='line'>      <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="c1">//args isset to everything passed in after options item</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">arguments</span> <span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="c1">//Don&#39;t waste time if there are no matching elements</span>
+</span><span class='line'>          <span class="k">if</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="c1">//Support chaining by returning this</span>
+</span><span class='line'>              <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>                  <span class="cm">/*</span>
+</span><span class='line'><span class="cm">                  * Retrieve the instance from $.data() OR create the instance, _init() it, and store that instance in $.data()</span>
+</span><span class='line'><span class="cm">                  * Here your plugin is assumed to live in namespace.plugins.name</span>
+</span><span class='line'><span class="cm">                  * Look in the samples folder for a namespaced example</span>
+</span><span class='line'><span class="cm">                  */</span>
+</span><span class='line'>                  <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span> <span class="k">this</span> <span class="p">,</span> <span class="nx">name</span> <span class="p">)</span> <span class="o">||</span> <span class="nx">$</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span> <span class="k">this</span> <span class="p">,</span> <span class="nx">name</span> <span class="p">,</span> <span class="k">new</span> <span class="nx">namespace</span><span class="p">.</span><span class="nx">plugins</span><span class="p">[</span><span class="nx">name</span><span class="p">](</span> <span class="k">this</span> <span class="p">,</span> <span class="nx">options</span> <span class="p">).</span><span class="nx">_init</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>                  <span class="c1">//If the first arg is a string we assume you are calling a method inside the plugin instance</span>
+</span><span class='line'>                  <span class="k">if</span><span class="p">(</span> <span class="k">typeof</span> <span class="nx">options</span> <span class="o">===</span> <span class="s2">&quot;string&quot;</span> <span class="p">){</span>
+</span><span class='line'>
+</span><span class='line'>                      <span class="c1">//underscored methods are &quot;private&quot; (similar to jQuery UI&#39;s $.widget we allow this to make methods not availble via public api)</span>
+</span><span class='line'>                      <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="sr">/^_/</span> <span class="p">,</span> <span class="s2">&quot;&quot;</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>                      <span class="c1">//Check if underscore filtered method exists</span>
+</span><span class='line'>                      <span class="k">if</span><span class="p">(</span> <span class="nx">instance</span><span class="p">[</span><span class="nx">options</span><span class="p">]</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>                          <span class="c1">//Call method with args</span>
+</span><span class='line'>                          <span class="nx">instance</span><span class="p">[</span><span class="nx">options</span><span class="p">].</span><span class="nx">apply</span><span class="p">(</span> <span class="nx">instance</span> <span class="p">,</span> <span class="nx">args</span> <span class="p">);</span>
+</span><span class='line'>                      <span class="p">}</span>
+</span><span class='line'>                  <span class="p">}</span>
+</span><span class='line'>              <span class="p">});</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>      <span class="p">};</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'><span class="p">})(</span> <span class="nx">jQuery</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//After pluginifier and your plugin are in place you need to register your plugins</span>
+</span><span class='line'><span class="c1">//$.pluginifier( &quot;myAwesomeSauce&quot; );</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h2>The Cheese - Plugin Boilerplate</h2>
+
+
+<p>The idea of this plugin boilerplate is that you keep the code that does everything separate from the code that makes it accessible as a jQuery Plugin.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">//This should be available somewhere, doesn&#39;t have to be here explicitly</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">namespace</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//This will hold all of the plugins</span>
+</span><span class='line'>  <span class="nx">plugins</span> <span class="o">:</span> <span class="p">{}</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//Wrap in a closure to secure $ for jQuery</span>
+</span><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">(</span> <span class="nx">$</span> <span class="p">){</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//Constructor - This is what is called when we create call new namspace.plugins.pluginNameHere( this , options );</span>
+</span><span class='line'>  <span class="nx">namespace</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">pluginNameHere</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">ele</span> <span class="p">,</span> <span class="nx">options</span> <span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">$this</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span> <span class="nx">ele</span> <span class="p">);</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span> <span class="p">{}</span> <span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">defaults</span> <span class="p">,</span> <span class="nx">options</span> <span class="p">);</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//These prototype items get assigned to every instance of namespace.plugins.pluginNameHere</span>
+</span><span class='line'>  <span class="nx">namespace</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">pluginNameHere</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//This is the default option all instances get, can be overridden by incoming options argument</span>
+</span><span class='line'>      <span class="nx">defaults</span> <span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">opt</span><span class="o">:</span> <span class="s2">&quot;tion&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//private init method - This is called immediately after the constructor</span>
+</span><span class='line'>      <span class="nx">_init</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>          <span class="c1">//useful code here</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//private method - We filter out method names that start with an underscore this won&#39;t work outside</span>
+</span><span class='line'>      <span class="nx">_aPrivateMethod</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>          <span class="c1">//Something useful here that is not needed externally</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//public method - This method is available via $(&quot;#element&quot;).pluginNameHere(&quot;aPublicMethod&quot;,&quot;aParameter&quot;);</span>
+</span><span class='line'>      <span class="nx">aPublicMethod</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>          <span class="c1">//Something useful here that anyone can call anytime</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//Here we register the plugin - $(&quot;#ele&quot;).pluginNameHere(); now works as expected</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">pluginifier</span><span class="p">(</span> <span class="s2">&quot;pluginNameHere&quot;</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">})(</span> <span class="nx">jQuery</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h2>The pickles?</h2>
+
+
+<p>These two jsFiddles are examples of the same plugin written with and without the pluginifier and my boilerplate. You&#8217;ll see that the functionality stays the same and the concept to grasp here is on code reuse and management. - Also note there is overhead in filesize when you are dealing with a single plugin, however once you add another plugin that utilizes $.pluginifier you gain a few bytes.</p>
+
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/5UZuv/embedded/js,resources,html,css,result/light/"></iframe>
+
+
+
+
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/43Whr/embedded/js,resources,html,css,result/light/"></iframe>
+
+
+<p>All of this code is available on github: <a href="https://github.com/aknosis/jquery-pluginifier">https://github.com/aknosis/jquery-pluginifier/</a>.</p>
+
+<p>I&#8217;m interested to see how people may use this code or what else they use instead. Questions and comments are always welcomed. Alex Sexton deserves most of the credit for this cod (see below).</p>
+
+<p><span style="font-size: 15px; font-weight: bold;">Resources:</span></p>
+
+<ul>
+    <li><a href="http://alexsexton.com/?p=51" target="_blank">Using Inheritance Patterns to Organize Large jQuery Applications</a> - If you want a greater understanding of this concept take a look at Alex Sexton&#8217;s post, you will see where I came up with most of this code (although there are some tweaks that I made for personal preference), read the comments too as there is some good discussion.</li>
+    <li><a href="http://stefangabos.ro/jquery/jquery-plugin-boilerplate/">jQuery Plugin Boilerplate</a> - Stefan Gabos</li>
+    <li><a href="http://docs.jquery.com/Plugins/Authoring" target="_blank">jQuery Documentation on Plugin Authoring </a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fixes are coming...]]></title>
+    <link href="http://aknosis.com/2011/04/19/fixes-are-coming/"/>
+    <updated>2011-04-19T14:30:38-07:00</updated>
+    <id>http://aknosis.com/2011/04/19/fixes-are-coming</id>
+    <content type="html"><![CDATA[<p>New theme, new color scheme, etc. I&#8217;m going to try and work my way back and replace all of my inline javascript stuff with jsfiddle snippets.</p>
+
+<p>If you catch anything I miss feel free to let me know.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[I want to be a jkweeree Ninja!]]></title>
+    <link href="http://aknosis.com/2010/11/06/i-want-to-be-a-jkweeree-ninja/"/>
+    <updated>2010-11-06T16:27:35-07:00</updated>
+    <id>http://aknosis.com/2010/11/06/i-want-to-be-a-jkweeree-ninja</id>
+    <content type="html"><![CDATA[<p>Below is my entry for Adam Sontag&#8217;s contest to win a ticket to the 2010 jQuery Summit. It pretty much sums up as per the spec of the contest, I want to be a jQuery Ninja [while wearing a Devo Whip It hat in jQuery blue :)].
+<a href="http://aknosis.com/images/2010/11/DSCF8344-e1289083614559.jpg"><img class="alignnone size-large wp-image-378" title="jkweeree ninja" src="http://aknosis.com/images/2010/11/DSCF8344-e1289083614559-768x1024.jpg" alt="" width="600" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Backing Up XenServer VMs via Command Line]]></title>
+    <link href="http://aknosis.com/2010/09/25/backing-up-xenserver-vms-via-command-line/"/>
+    <updated>2010-09-25T08:41:21-07:00</updated>
+    <id>http://aknosis.com/2010/09/25/backing-up-xenserver-vms-via-command-line</id>
+    <content type="html"><![CDATA[<p>Quick and easy steps to backup a vm via the command line.</p>
+
+<p>On your host server:</p>
+
+<figure class='code'><figcaption><span>backup.sh </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="o">[</span>root@xenhost ~<span class="o">]</span><span class="c"># xe vm-list</span>
+</span><span class='line'>-- Note your vm<span class="err">&#39;</span>s uuid here <span class="o">(</span>you can use tab completion to autofill in the uuid so no need to copy entirely<span class="o">)</span> --
+</span><span class='line'><span class="o">[</span>root@xenhost ~<span class="o">]</span><span class="c"># xe vm-shutdown uuid=x</span>
+</span><span class='line'><span class="o">[</span>root@xenhost ~<span class="o">]</span><span class="c"># xe vm-export uuid=x filename=/backup/vmfile.xva</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&#8217;s that simple.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Retrieve D-Link Router WPA Password via Firebug]]></title>
+    <link href="http://aknosis.com/2010/03/19/retrieve-d-link-router-wpa-password-via-firebug/"/>
+    <updated>2010-03-19T22:39:35-07:00</updated>
+    <id>http://aknosis.com/2010/03/19/retrieve-d-link-router-wpa-password-via-firebug</id>
+    <content type="html"><![CDATA[<p>Well I&#8217;ve done it a million times, I forget my WPA password and each time a new device comes along I have to change it for them all. Well no more!</p>
+
+<!--more-->
+
+
+<p>My router is D-Link DGL-4300. All you need to make this work is <a href="http://getfirefox.com">Firefox </a>and <a href="http://getfirebug.com/">Firebug</a>. (Any javascript console should work)</p>
+
+<p>Travel over to your nifty wireless settings page (http://192.168.0.1/Basic_Wireless.html) and open up your javascript console. Then type this:</p>
+
+<figure class='code'><figcaption><span>psk.js </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">data</span><span class="p">.</span><span class="nx">wireless</span><span class="p">.</span><span class="nx">wpa_psk</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and you should see your nifty WPA password in the console.</p>
+
+<p>Enjoy!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery 1.4.2 Released]]></title>
+    <link href="http://aknosis.com/2010/02/19/jquery-1-4-2-released/"/>
+    <updated>2010-02-19T21:29:31-07:00</updated>
+    <id>http://aknosis.com/2010/02/19/jquery-1-4-2-released</id>
+    <content type="html"><![CDATA[<p>Such quick turn around for the last two point releases are building my confidence in jQuery! I love to see the huge performance improvements, its almost becoming an issue to try and fit each release into our codebase at work. Love jQuery nonetheless&#8230; keep up the good work.</p>
+
+<p>Relase notes: <a href="http://blog.jquery.com/2010/02/19/jquery-142-released/">http://blog.jquery.com/2010/02/19/jquery-142-released/</a></p>
+
+<p>Quick Summary:</p>
+
+<ul>
+    <li>New Methods
+<ul>
+    <li><a href="http://api.jquery.com/delegate">delegate()</a></li>
+    <li><a href="http://api.jquery.com/undelegate">undelegate()</a></li>
+</ul>
+</li>
+    <li>Performance Improvements:
+<ul>
+    <li>The performance of calling <a href="http://api.jquery.com/bind">.bind()</a> and <a href="http://api.jquery.com/unbind">.unbind()</a>. (<a href="http://dev.jquery.com/ticket/5972">Ticket</a>)</li>
+    <li>The performance of <a href="http://api.jquery.com/empty">.empty()</a>,  <a href="http://api.jquery.com/remove">.remove()</a>, and <a href="http://api.jquery.com/html">.html()</a>. (<a href="http://dev.jquery.com/ticket/5974">Ticket</a>)</li>
+    <li>The performance of inserting a single DOM node into a document. (<a href="http://dev.jquery.com/ticket/5979">Ticket</a>, <a href="http://github.com/jquery/jquery/commit/0db207da238e879dad20f68178e6248750d3b984">Additional  Commit</a>)</li>
+    <li>The performace of calling <code>$("body")</code>. (<a href="http://github.com/jquery/jquery/commit/b8076a914ba9d400dc9c48d866b145df6fabafcf">Commit</a>)</li>
+</ul>
+</li>
+    <li>Event Rewrite: Internal Changes (not much affect our end)</li>
+    <li>Bugs Fixes: 40 bugs fixes</li>
+</ul>
+
+
+<p>Api Changes: <a href="http://api.jquery.com/category/version/1.4.2/">http://api.jquery.com/category/version/1.4.2/</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Automating MySQL Database Backups on the Command Line via mysqldump ]]></title>
+    <link href="http://aknosis.com/2009/10/25/automating-mysql-database-backups-on-the-command-line-via-mysqldump/"/>
+    <updated>2009-10-25T22:54:30-07:00</updated>
+    <id>http://aknosis.com/2009/10/25/automating-mysql-database-backups-on-the-command-line-via-mysqldump</id>
+    <content type="html"><![CDATA[<h2>Are you tired of manually running backups when you remember to?</h2>
+
+
+<p>If you are running your own server, or have access to the shell and cron jobs this tip is for you!</p>
+
+<p>First off for a better understanding of mysqldump check out the <a href="http://dev.mysql.com/doc/refman/5.0/en/mysqldump.html" target="_blank">MySQL reference manual</a>. All mysqldump really does is output the necessary queries to rebuild your database to the current state it is at when run.</p>
+
+<p>First I&#8217;m going to create a test database and some tables as examples:</p>
+
+<!--more-->
+
+
+
+
+<pre>
+mysql> CREATE DATABASE test;
+Query OK, 1 row affected (0.00 sec)
+mysql> USE test;
+Database changed
+mysql> CREATE TABLE foo (id INT(10), val CHAR(10));
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_test |
++----------------+
+| foo            |
+| foo2           |
++----------------+
+2 rows in set (0.00 sec)
+mysql> INSERT INTO foo VALUES (1,'a');
+mysql> INSERT INTO foo VALUES (2,'b');
+mysql> INSERT INTO foo VALUES (3,'c');
+mysql> INSERT INTO foo VALUES (4,'d');
+mysql> INSERT INTO foo VALUES (5,'e');
+mysql> SELECT * FROM foo;
++------+------+
+| id   | val  |
++------+------+
+|    1 | a    |
+|    2 | b    |
+|    3 | c    |
+|    4 | d    |
+|    5 | e    |
++------+------+
+5 rows in set (0.00 sec)
+mysql> INSERT INTO foo2 VALUES (26,'z');
+mysql> SELECT * FROM foo2;
++------+------+
+| id2  | val2 |
++------+------+
+|   26 | z    |
++------+------+
+1 row in set (0.00 sec)
+</pre>
+
+
+<p>Ok, so now we have our test database with two tables and some data in each table. Now to run mysqldump. The first parameters you have to have are your username and password and finally the database you want to backup.</p>
+
+<pre>
+[aknosis@server ~]$ mysqldump -u msyql_user -pmysql_password test
+-- MySQL dump 10.11
+--
+-- Host: localhost    Database: test
+-- ------------------------------------------------------
+-- Server version       5.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `foo`
+--
+
+DROP TABLE IF EXISTS `foo`;
+CREATE TABLE `foo` (
+`id` int(10) default NULL,
+`val` char(10) default NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `foo`
+--
+
+LOCK TABLES `foo` WRITE;
+/*!40000 ALTER TABLE `foo` DISABLE KEYS */;
+INSERT INTO `foo` VALUES (1,'a'),(2,'b'),(3,'c'),(4,'d'),(5,'e');
+/*!40000 ALTER TABLE `foo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `foo2`
+--
+
+DROP TABLE IF EXISTS `foo2`;
+CREATE TABLE `foo2` (
+`id2` int(10) default NULL,
+`val2` char(10) default NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `foo2`
+--
+
+LOCK TABLES `foo2` WRITE;
+/*!40000 ALTER TABLE `foo2` DISABLE KEYS */;
+INSERT INTO `foo2` VALUES (26,'z');
+/*!40000 ALTER TABLE `foo2` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2009-10-26  5:12:09
+</pre>
+
+
+<p>So what you see if the exact output of mysqldump, it literally dumps your entire database to stdout. Lets analyze this output a little.</p>
+
+<pre>
+'Program Version Number'
+-- MySQL dump 10.11
+--
+'Host Dump was from and the datbase dump'
+-- Host: localhost    Database: test
+-- ------------------------------------------------------
+'Server Version'
+-- Server version       5.1
+
+'These odd characters are meant to keep the sql backwards compatible. Basically based on the version number (!4.0101) it says to set these variables.'
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `foo`
+--
+
+'Create the foo table (you will see the create statement is the same as mine from above with a few defaults added that I didt set myself)'
+'Note that if you were to import this script it would wipe out any changes made to the database after this backup is created, because of the DROP TABLE statement'
+DROP TABLE IF EXISTS `foo`;
+CREATE TABLE `foo` (
+`id` int(10) default NULL,
+`val` char(10) default NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `foo`
+--
+
+'Lock tales and fill it in with the data'
+LOCK TABLES `foo` WRITE;
+/*!40000 ALTER TABLE `foo` DISABLE KEYS */;
+INSERT INTO `foo` VALUES (1,'a'),(2,'b'),(3,'c'),(4,'d'),(5,'e');
+/*!40000 ALTER TABLE `foo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `foo2`
+--
+
+'Create the second table'
+DROP TABLE IF EXISTS `foo2`;
+CREATE TABLE `foo2` (
+`id2` int(10) default NULL,
+`val2` char(10) default NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `foo2`
+--
+
+'Fill it up just as the first one'
+LOCK TABLES `foo2` WRITE;
+/*!40000 ALTER TABLE `foo2` DISABLE KEYS */;
+INSERT INTO `foo2` VALUES (26,'z');
+/*!40000 ALTER TABLE `foo2` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+'Set more version specific variables'
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+'A timestamp for good measure'
+-- Dump completed on 2009-10-26  5:12:09
+</pre>
+
+
+<p>Now that we know what mysqldump is doing lets make proper use of the command</p>
+
+<pre>
+[aknosis@server ~]$ mysqldump -u mysql_user -pmysql_pass test > /tmp/test.sql
+</pre>
+
+
+<p>This says dump the output above to a file, we can go a step further and compress that file with tar. (Although useless in this instance a 2GB backup can easily be compressed to around 300MB since it is all text which compresses well)</p>
+
+<pre>
+[aknosis@server ~]$  cd /tmp
+[aknosis@server ~]$  tar -czf test.tgz test.sql
+</pre>
+
+
+<p>So now you have all the steps you need to create a full point-in-time MySQL database backup and compress the output to save on transfer time and disk space. Dump that code into a cronjob and your automation is complete!</p>
+
+<p>Here is how it could look as a bash script, say mysqlbackup.sh</p>
+
+<pre>
+#!/bin/bash
+#Run the dump
+/usr/bin/mysqldump -u mysql_user -pmysql_password test > /tmp/test.sql
+#Move to temp directory
+cd /tmp
+#Compress the sql
+tar -czf test.tgz test.sql
+#Delete the sql (you really don't want that data hanging around do you??)
+rm test.sql
+#Move the backup somewhere useful
+mv test.tgz /my/network_attached_storage
+</pre>
+
+
+<p>And the cronjob:</p>
+
+<pre>
+@daily /home/user/scripts/mysqlbackup.sh
+</pre>
+
+
+<p>That&#8217;s it, a fairly mundane task that can be a live saver when needed.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Apache: How to redirect all root domain traffic to www subdomain]]></title>
+    <link href="http://aknosis.com/2009/10/22/apache-how-to-redirect-all-root-domain-traffic-to-www-subdomain/"/>
+    <updated>2009-10-22T22:37:20-07:00</updated>
+    <id>http://aknosis.com/2009/10/22/apache-how-to-redirect-all-root-domain-traffic-to-www-subdomain</id>
+    <content type="html"><![CDATA[<p>Problem: Traffic comes to http://aknosis.com/something/ but they really need to go to http://www.aknosis.com/something/.</p>
+
+<p>Solution: 301 Redirect via Apache with mod_rewrite.</p>
+
+<p>Simple easy addition to your httpd.conf or .htaccess, I placed mine right above my wordpress mod_rewrite rules. If you are using .htaccess just dump it in that file above the wordpress redirect, if you having your rewrite rules in your httpd.conf then it needs to go inside the  container:</p>
+
+<pre>&lt;Directory /www/mydir/&gt;
+        RewriteEngine On
+        RewriteCond %{HTTP_HOST} !^www\.aknosis\.com$ [NC]
+        RewriteRule ^(.*)$ http://www.aknosis.com/$1 [R=301,L]
+#Wordpress Here
+        RewriteBase /
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule . /index.php [L]
+&lt;/Directory&gt;
+</pre>
+
+
+<p>Breakdown:</p>
+
+<pre>RewriteCond %{HTTP_HOST} !^www\.aknosis\.com$ [NC]
+If the HTTP_HOST header doesn't equal www.aknosis.com then :
+RewriteRule ^(.*)$ http://www.aknosis.com/$1 [R=301,L]
+Use the rewrite rule to push the request to http://www.aknosis.com/
+^ - Beginning of request uri
+() - Means group this into $1
+$ - End of request uri
+http://www.aknosis.com/$1 - Rewrite to this ($1 = the request uri)
+[R=301 - Use a 301 Redirect
+,L] - Make this the final rewrite rule and go</pre>
+
+
+<p>Try it out, go here (<a href="http://aknosis.com/">http://aknosis.com/</a>) and you end up here (<a href="http://www.aknosis.com/">http://www.aknosis.com/</a>). You can see the actual redirect in firebug&#8217;s net tab:</p>
+
+<p style="text-align: center;"><a href="http://aknosis.com/images/2009/10/firebug-redirect.jpg"><img class="size-full wp-image-272 aligncenter" title="firebug-redirect" src="http://aknosis.com/images/2009/10/firebug-redirect.jpg" alt="firebug-redirect" width="619" height="112" /></a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A ton of Web Developer Cheat Sheets]]></title>
+    <link href="http://aknosis.com/2009/10/19/a-ton-of-web-developer-cheat-sheets/"/>
+    <updated>2009-10-19T22:06:57-07:00</updated>
+    <id>http://aknosis.com/2009/10/19/a-ton-of-web-developer-cheat-sheets</id>
+    <content type="html"><![CDATA[<p>Stop digging in your notebook for all your hand written notes, or jumping around your My Computer, because anything you ever wanted it probably listed here: <a href="http://www.tripwiremagazine.com/tools/tools/55-seriously-useful-front-end-web-developer-cheat-sheets.html">http://www.tripwiremagazine.com/tools/tools/55-seriously-useful-front-end-web-developer-cheat-sheets.html</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fun with jQuery - Checkboxes!!!]]></title>
+    <link href="http://aknosis.com/2009/10/17/fun-with-jquery-checkboxes/"/>
+    <updated>2009-10-17T22:43:15-07:00</updated>
+    <id>http://aknosis.com/2009/10/17/fun-with-jquery-checkboxes</id>
+    <content type="html"><![CDATA[<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+
+
+<script type="text/javascript">
+  $.noConflict();
+  // Code that uses other library's $ can follow here.
+</script>
+
+
+<p>Another day with jQuery, this time we are talking about checkboxes.</p>
+
+<p>Just like I stated in my <a href="http://aknosis.com/2009/10/15/more-jquery-fun-auto-populating-a-select-box/">previous post</a> about select boxes, jQuery and checkbox <em>integration</em>, if you will, isn&#8217;t cut and dry but damn near close. So how can jQuery assist with checkboxes? Lots of ways, here are a few examples to keep you entertained.</p>
+
+<p>Try and manually select a checkbox and it will still toggle them correctly (turn them off it they are on and vice versa).</p>
+
+<script>
+function toggleChecks(){ jQuery('input[type=checkbox]').each( function(){ if(jQuery(this).is(':checked')){ jQuery(this).removeAttr('checked'); }else{ jQuery(this).attr('checked',true); } }); }
+</script>
+
+
+<table border="0">
+<tbody>
+<tr>
+<td rowspan="2"><input class="button" onclick="toggleChecks();" type="button" value="Toggle Checks" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+</tr>
+<tr>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+</tr>
+</tbody></table>
+
+
+<h3>jQuery selector for checkboxes</h3>
+
+
+<p>Just like any input you can choose your checkbox(es) with any standard selector.</p>
+
+<ul>
+    <li><strong>By Class</strong>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">//Selector</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.cb_class&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- Input Html --&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">class=</span><span class="s">&quot;cb_class&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</li>
+    <li><strong>By Id</strong>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Selector</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#cb&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- Input Html --&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">id=</span><span class="s">&quot;cb&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</li>
+<li><strong>By tag and attribute</strong>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Selector</span>
+</span><span class='line'> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;input[type=checkbox]&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="c1">//Note: This would select all checkboxes</span>
+</span><span class='line'><span class="c1">//(same code in the Toggle Checks button above)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- Input Html --&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</li>
+<li><strong>By tag and attribute</strong>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Selector</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;input[name=checkBoxname]&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- Input Html --&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">name=</span><span class="s">&quot;checkBoxname&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</li>
+</ul>
+
+
+<!--more-->
+
+
+<h3>How to tell if a check box is checked?</h3>
+
+
+<p><input id="cb1" class="cb" type="checkbox" />
+<input class="button" onclick="if(jQuery('#cb1').is(':checked')){alert('It is checked');}else{alert('Not checked');}" type="button" value="Is this checkbox checked?" /></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">if</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#cb1&#39;</span><span class="p">).</span><span class="nx">is</span><span class="p">(</span><span class="s1">&#39;:checked&#39;</span><span class="p">)){</span> <span class="c1">//Check if checkbox is checked and alert the result</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;It is checked&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Not checked&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h3>How to check and uncheck a checkbox</h3>
+
+
+<p>
+There is no magical built-in function to check and uncheck but use of standard jQuery functions will accomplishes the same task.
+</p>
+
+
+<p><input id="cb2" class="cb" type="checkbox" />
+<input class="button" onclick="jQuery('#cb2').attr('checked',true);" type="button" value="Check Checkbox" />
+<input class="button" onclick="jQuery('#cb2').attr('checked',false);" type="button" value="Uncheck Checkbox" /></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Check Code</span>
+</span><span class='line'><span class="c1">//This just adds the checked attribute to the input tag</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#cb2&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;checked&#39;</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+</span><span class='line'><span class="c1">//Uncheck Code</span>
+</span><span class='line'><span class="c1">//This just removes the checked attribute from the input tag</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#cb2&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;checked&#39;</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
+</span><span class='line'><span class="c1">//Can also use this:</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#cb2&#39;</span><span class="p">).</span><span class="nx">removeAttr</span><span class="p">(</span><span class="s1">&#39;checked&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h3>Determine the value of checked boxes</h3>
+
+
+<p>
+If you have a value assigned to your checked boxes all you need to do is use the .val() function to return the value.
+</p>
+
+
+<p><input id="cb3" class="cb" type="checkbox"  value="Checkbox 3" />
+<input class="button" onclick="alert('Value: '+jQuery('#cb3').val());" type="button" value="What is the value?" /></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">&quot;cb3&quot;</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">value=</span><span class="s">&quot;Checkbox 3&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Value: &#39;</span><span class="o">+</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#cb3&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h3> Full Example </h3>
+
+
+<p>
+This function will get all the values of the checked checkboxes, add the results and display them.
+</p>
+
+
+<script>
+function calcChecked(){
+var total = 0;
+var str = '0';
+    jQuery('#table :checked').each(
+function(){
+  var val = parseInt(jQuery(this).val());
+ total += val;
+str += ' + '+val;
+jQuery(this).removeAttr('checked');
+}
+);
+str += ' = '+total
+jQuery('#updater').append('<div style="display:none">'+str+'</div>');
+jQuery('#updater div:last').slideDown('slow');
+}
+</script>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">calcChecked</span><span class="p">(){</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">total</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span><span class="p">;</span>
+</span><span class='line'> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#table :checked&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span>
+</span><span class='line'><span class="c1">//Execute this function for each &#39;:checked&#39; element in the table</span>
+</span><span class='line'><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">val</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span> <span class="c1">//Get integer value</span>
+</span><span class='line'> <span class="nx">total</span> <span class="o">+=</span> <span class="nx">val</span><span class="p">;</span> <span class="c1">//Add to the total</span>
+</span><span class='line'><span class="nx">str</span> <span class="o">+=</span> <span class="s1">&#39; + &#39;</span><span class="o">+</span><span class="nx">val</span><span class="p">;</span> <span class="c1">//Add to the equation string</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">removeAttr</span><span class="p">(</span><span class="s1">&#39;checked&#39;</span><span class="p">);</span> <span class="c1">//Uncheck the checkbox</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'><span class="nx">str</span> <span class="o">+=</span> <span class="s1">&#39; = &#39;</span><span class="o">+</span><span class="nx">total</span> <span class="c1">//Finalize the equation</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#updater&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;&lt;div style=&quot;display:none&quot;&gt;&#39;</span><span class="o">+</span><span class="nx">str</span><span class="o">+</span><span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">);</span> <span class="c1">//Add the string to the table</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#updater div:last&#39;</span><span class="p">).</span><span class="nx">slideDown</span><span class="p">(</span><span class="s1">&#39;slow&#39;</span><span class="p">);</span> <span class="c1">//Use some flare to make it show up</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<table border="0" id="table">
+<tbody>
+<tr>
+<td rowspan="2">
+<input class="button" onclick="calcChecked();" type="button" value="Calculate Checked" />
+<div id="updater">
+
+</div>
+</td>
+<td><input class="cb" type="checkbox" value="1" />1</td>
+<td><input class="cb" type="checkbox" value="2" />2</td>
+<td><input class="cb" type="checkbox" value="3" />3</td>
+<td><input class="cb" type="checkbox" value="4" />4</td>
+<td><input class="cb" type="checkbox" value="5" />5</td>
+<td><input class="cb" type="checkbox" value="6" />6</td>
+</tr>
+<tr>
+<td><input class="cb" type="checkbox" value="7" />7</td>
+<td><input class="cb" type="checkbox" value="8" />8</td>
+<td><input class="cb" type="checkbox" value="9" />9</td>
+<td><input class="cb" type="checkbox" value="10" />10</td>
+<td><input class="cb" type="checkbox" value="11" />11</td>
+<td><input class="cb" type="checkbox" value="12" />12</td>
+</tr>
+</tbody></table>
+
+
+<p>Need help with something else? Just ask, post a comment and I&#8217;ll help you out.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[More jQuery Fun - Auto Populating a Select Box]]></title>
+    <link href="http://aknosis.com/2009/10/15/more-jquery-fun-auto-populating-a-select-box/"/>
+    <updated>2009-10-15T23:10:28-07:00</updated>
+    <id>http://aknosis.com/2009/10/15/more-jquery-fun-auto-populating-a-select-box</id>
+    <content type="html"><![CDATA[<h3>Note: This post was updated 8/2/2011 to include jsfiddle code snippets and better/smarter code overall. Enjoy!</h3>
+
+
+<p>Problem: You want to dynamically populate a select box and you don&#8217;t know how.</p>
+
+<p>Solution: Easy, I will show you.</p>
+
+<p>First off, I lied there is no built in way in jQuery (why?, I don&#8217;t know) to automatically populate a select box. But it actually is very easy. There are plenty of methods to accomplish this but I like to do it this was because utilizes the <a href="http://docs.sun.com/source/816-6408-10/option.htm">Option object</a> and it doesn&#8217;t require html string concatenation.</p>
+
+<h2>The basics</h2>
+
+
+<p>Example 1:</p>
+
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/NKQRe/embedded/result,js,html/light/"></iframe>
+
+
+<p>In this example I will populate the 2nd select box based on the value of the first one.</p>
+
+<p>Example 2:</p>
+
+<p>This time when I change something in the first sel, it does the changing of the second select box.</p>
+
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/5wRX9/embedded/result,js,html/light/"></iframe>
+
+
+
+
+<h3>What now?</h3>
+
+
+<p>There are many paths you can go down to make your select boxes dynamic, whether that is auto populating them, adding or removing single values, making them submit forms, submitting ajax calls to populate etc. etc. The key to making your life easier is to understand the way the select element is handled. Think of it as an array of element objects (which it is), at each index is an option and each option has text and a value.</p>
+
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/H7aGc/embedded/result,js,html/light/"></iframe>
+
+
+<p>Need help implementing a specific example? Just ask in a comment!</p>
+]]></content>
+  </entry>
+  
+</feed>

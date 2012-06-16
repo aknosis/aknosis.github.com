@@ -1,0 +1,524 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>jQuery Pluginifier - Plugin Instantiator & Plugin Boilerplate - aknosis.com</title>
+  <meta name="author" content="Paul 'aknosis' Giberson">
+
+  
+  <meta name="description" content="After coming across a recent blog post on jQuery Plugin Boilerplate code it reminded me a few months back when I was looking at the best method for &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://aknosis.com/2011/05/11/jquery-pluginifier-jquery-plugin-instantiator-boilerplate/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/aknosis" rel="alternate" title="aknosis.com" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11096805-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">aknosis.com</a></h1>
+  
+    <h2>webdev && sysadmin quips, tips, articles + more</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/aknosis" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:aknosis.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">jQuery Pluginifier - Plugin Instantiator & Plugin Boilerplate</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-11T06:01:58-07:00" pubdate data-updated="true">May 11<span>th</span>, 2011</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>After coming across a recent blog post on <a href="http://stefangabos.ro/jquery/jquery-plugin-boilerplate/">jQuery Plugin Boilerplate</a> code it reminded me a few months back when I was looking at the best method for authoring plugins for use at work. After much googling and trial and error I finally came to grips with something and below is the end result.</p>
+
+<p>The code in the <a href="http://stefangabos.ro/jquery/jquery-plugin-boilerplate/">jQuery Plugin Boilerplate</a> blog post is very similar to the <a href="http://docs.jquery.com/Plugins/Authoring">plugin authoring page</a> in the jQuery Documentation. While they are both good resources, I think they favor single plugins and may potentially lead developers down a path of duplicate code. Similar to jQuery UI&#8217;s $.widget what I want to push here is a snippet of code that can transform your code into a &#8220;jQuery Plugin&#8221; (is there a real definition of this somewhere?).</p>
+
+<!--more-->
+
+
+<p><span style="font-size: 20px; font-weight: bold;">The Meat - Pluginifier (Instantiator)</span></p>
+
+<p>The plugin instantiator function creates the prototype plugin function using jQuery.fn, inside that function the code will handle creating/storing/retrieving plugin instances and calling methods on plugins that are already created. This code is meant for reuse for n amount of plugins you create, there is no need to rewrite this block of code (or something similar) for each plugin you have.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">//Wrap in a closure to secure $ for jQuery</span>
+</span><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">(</span> <span class="nx">$</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//name is the name of your plugin</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">pluginifier</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">name</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//Create the prototype function for the plugin</span>
+</span><span class='line'>      <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">options</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="c1">//args isset to everything passed in after options item</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">arguments</span> <span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="c1">//Don&#39;t waste time if there are no matching elements</span>
+</span><span class='line'>          <span class="k">if</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="c1">//Support chaining by returning this</span>
+</span><span class='line'>              <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>                  <span class="cm">/*</span>
+</span><span class='line'><span class="cm">                  * Retrieve the instance from $.data() OR create the instance, _init() it, and store that instance in $.data()</span>
+</span><span class='line'><span class="cm">                  * Here your plugin is assumed to live in namespace.plugins.name</span>
+</span><span class='line'><span class="cm">                  * Look in the samples folder for a namespaced example</span>
+</span><span class='line'><span class="cm">                  */</span>
+</span><span class='line'>                  <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span> <span class="k">this</span> <span class="p">,</span> <span class="nx">name</span> <span class="p">)</span> <span class="o">||</span> <span class="nx">$</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span> <span class="k">this</span> <span class="p">,</span> <span class="nx">name</span> <span class="p">,</span> <span class="k">new</span> <span class="nx">namespace</span><span class="p">.</span><span class="nx">plugins</span><span class="p">[</span><span class="nx">name</span><span class="p">](</span> <span class="k">this</span> <span class="p">,</span> <span class="nx">options</span> <span class="p">).</span><span class="nx">_init</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>                  <span class="c1">//If the first arg is a string we assume you are calling a method inside the plugin instance</span>
+</span><span class='line'>                  <span class="k">if</span><span class="p">(</span> <span class="k">typeof</span> <span class="nx">options</span> <span class="o">===</span> <span class="s2">&quot;string&quot;</span> <span class="p">){</span>
+</span><span class='line'>
+</span><span class='line'>                      <span class="c1">//underscored methods are &quot;private&quot; (similar to jQuery UI&#39;s $.widget we allow this to make methods not availble via public api)</span>
+</span><span class='line'>                      <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="sr">/^_/</span> <span class="p">,</span> <span class="s2">&quot;&quot;</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>                      <span class="c1">//Check if underscore filtered method exists</span>
+</span><span class='line'>                      <span class="k">if</span><span class="p">(</span> <span class="nx">instance</span><span class="p">[</span><span class="nx">options</span><span class="p">]</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>                          <span class="c1">//Call method with args</span>
+</span><span class='line'>                          <span class="nx">instance</span><span class="p">[</span><span class="nx">options</span><span class="p">].</span><span class="nx">apply</span><span class="p">(</span> <span class="nx">instance</span> <span class="p">,</span> <span class="nx">args</span> <span class="p">);</span>
+</span><span class='line'>                      <span class="p">}</span>
+</span><span class='line'>                  <span class="p">}</span>
+</span><span class='line'>              <span class="p">});</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>      <span class="p">};</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'><span class="p">})(</span> <span class="nx">jQuery</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//After pluginifier and your plugin are in place you need to register your plugins</span>
+</span><span class='line'><span class="c1">//$.pluginifier( &quot;myAwesomeSauce&quot; );</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h2>The Cheese - Plugin Boilerplate</h2>
+
+
+<p>The idea of this plugin boilerplate is that you keep the code that does everything separate from the code that makes it accessible as a jQuery Plugin.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">//This should be available somewhere, doesn&#39;t have to be here explicitly</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">namespace</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//This will hold all of the plugins</span>
+</span><span class='line'>  <span class="nx">plugins</span> <span class="o">:</span> <span class="p">{}</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//Wrap in a closure to secure $ for jQuery</span>
+</span><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">(</span> <span class="nx">$</span> <span class="p">){</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//Constructor - This is what is called when we create call new namspace.plugins.pluginNameHere( this , options );</span>
+</span><span class='line'>  <span class="nx">namespace</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">pluginNameHere</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">ele</span> <span class="p">,</span> <span class="nx">options</span> <span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">$this</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span> <span class="nx">ele</span> <span class="p">);</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span> <span class="p">{}</span> <span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">defaults</span> <span class="p">,</span> <span class="nx">options</span> <span class="p">);</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//These prototype items get assigned to every instance of namespace.plugins.pluginNameHere</span>
+</span><span class='line'>  <span class="nx">namespace</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">pluginNameHere</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//This is the default option all instances get, can be overridden by incoming options argument</span>
+</span><span class='line'>      <span class="nx">defaults</span> <span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">opt</span><span class="o">:</span> <span class="s2">&quot;tion&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//private init method - This is called immediately after the constructor</span>
+</span><span class='line'>      <span class="nx">_init</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>          <span class="c1">//useful code here</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//private method - We filter out method names that start with an underscore this won&#39;t work outside</span>
+</span><span class='line'>      <span class="nx">_aPrivateMethod</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>          <span class="c1">//Something useful here that is not needed externally</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//public method - This method is available via $(&quot;#element&quot;).pluginNameHere(&quot;aPublicMethod&quot;,&quot;aParameter&quot;);</span>
+</span><span class='line'>      <span class="nx">aPublicMethod</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>          <span class="c1">//Something useful here that anyone can call anytime</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//Here we register the plugin - $(&quot;#ele&quot;).pluginNameHere(); now works as expected</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">pluginifier</span><span class="p">(</span> <span class="s2">&quot;pluginNameHere&quot;</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">})(</span> <span class="nx">jQuery</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h2>The pickles?</h2>
+
+
+<p>These two jsFiddles are examples of the same plugin written with and without the pluginifier and my boilerplate. You&#8217;ll see that the functionality stays the same and the concept to grasp here is on code reuse and management. - Also note there is overhead in filesize when you are dealing with a single plugin, however once you add another plugin that utilizes $.pluginifier you gain a few bytes.</p>
+
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/5UZuv/embedded/js,resources,html,css,result/light/"></iframe>
+
+
+
+
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/43Whr/embedded/js,resources,html,css,result/light/"></iframe>
+
+
+<p>All of this code is available on github: <a href="https://github.com/aknosis/jquery-pluginifier">https://github.com/aknosis/jquery-pluginifier/</a>.</p>
+
+<p>I&#8217;m interested to see how people may use this code or what else they use instead. Questions and comments are always welcomed. Alex Sexton deserves most of the credit for this cod (see below).</p>
+
+<p><span style="font-size: 15px; font-weight: bold;">Resources:</span></p>
+
+<ul>
+    <li><a href="http://alexsexton.com/?p=51" target="_blank">Using Inheritance Patterns to Organize Large jQuery Applications</a> - If you want a greater understanding of this concept take a look at Alex Sexton&#8217;s post, you will see where I came up with most of this code (although there are some tweaks that I made for personal preference), read the comments too as there is some good discussion.</li>
+    <li><a href="http://stefangabos.ro/jquery/jquery-plugin-boilerplate/">jQuery Plugin Boilerplate</a> - Stefan Gabos</li>
+    <li><a href="http://docs.jquery.com/Plugins/Authoring" target="_blank">jQuery Documentation on Plugin Authoring </a></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul 'aknosis' Giberson</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-11T06:01:58-07:00" pubdate data-updated="true">May 11<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://aknosis.com/2011/05/11/jquery-pluginifier-jquery-plugin-instantiator-boilerplate/" data-via="aknosis" data-counturl="http://aknosis.com/2011/05/11/jquery-pluginifier-jquery-plugin-instantiator-boilerplate/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/04/19/fixes-are-coming/" title="Previous Post: Fixes are coming...">&laquo; Fixes are coming...</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/06/29/check-if-a-class-constant-exists-in-php/" title="Next Post: Quicktip: Check if a class constant exists in PHP">Quicktip: Check if a class constant exists in PHP &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/06/14/php-basics-phps-list/">PHP Basics: php's list()</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/10/quick-tip-rawurlencode-in-twig/">Quick Tip: rawurlencode in Twig</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/01/18/quicktip-read-from-stdin-in-php/">Quicktip: Read from stdin in PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/28/quicktip-add-conditionals-in-a-sql-where-clause/">Quicktip: Add conditionals in a WHERE clause</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/07/github-gist-shortcode-wordpress-plugin-update/">GitHub Gist Shortcode Wordpress Plugin Update</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/aknosis">@aknosis</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'aknosis',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("aknosis", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/aknosis" class="twitter-follow-button" data-show-count="false">Follow @aknosis</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Paul 'aknosis' Giberson -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'aknosis';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://aknosis.com/2011/05/11/jquery-pluginifier-jquery-plugin-instantiator-boilerplate/';
+        var disqus_url = 'http://aknosis.com/2011/05/11/jquery-pluginifier-jquery-plugin-instantiator-boilerplate/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

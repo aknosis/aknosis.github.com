@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Zero user interaction CAPTCHA - (lamecaptcha) - aknosis.com</title>
+  <meta name="author" content="Paul 'aknosis' Giberson">
+
+  
+  <meta name="description" content="This is not a new concept by far, however I want to share my fix for auto filling of forms on some of my sites. The issue arises from people creating &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://aknosis.com/2009/04/17/zero-user-interaction-captcha/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/aknosis" rel="alternate" title="aknosis.com" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11096805-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">aknosis.com</a></h1>
+  
+    <h2>webdev && sysadmin quips, tips, articles + more</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/aknosis" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:aknosis.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Zero User Interaction CAPTCHA - (Lamecaptcha)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-17T21:42:54-07:00" pubdate data-updated="true">Apr 17<span>th</span>, 2009</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This is not a new concept by far, however I want to share my fix for auto filling of forms on some of my sites. The issue arises from people creating bots/scripts that are intended to auto populate forms on site and submit them with the assumption that data does go somewhere and hopefully someone will click a bad link or buy some viagra or what not. This is most common when you have common web applications that have indentical registration forms or comment forms (like wordpress sites or forum software like phpbb). To solve this problem I&#8217;m sure you&#8217;ve see the wavy, crooked, colorful and always hard a hell to read text garbled that you have to enter before signing up to certain sites or buying tickets from ticket master. This form of &#8220;humanness test&#8221; if you will is refferred to as <a href="http://en.wikipedia.org/wiki/Captcha">CAPTCHA</a> (<strong>C</strong>ompletely <strong>A</strong>utomated <strong>P</strong>ublic <strong>T</strong>uring test to tell <strong>C</strong>omputers and <strong>H</strong>umans <strong>A</strong>part). The nice thing about implementing some form of captcha is that it will usually prevent most random attacks because most people don&#8217;t spend time directly targeting a single site, what they do is try to make it work with the most sites as possible to spread the spam as much as possible.</p>
+
+<p>The issue I have with most captcha systems is that they are a) annoying and b) they make me work harder than I need to be c) I end up having to squint my eyes and think hard to figure out what the f*ed up image is really saying. My ideal captcha would require 0 user interaction and somehow figureout that you are real.</p>
+
+<p>So I decided to create my &#8216;lamecaptcha&#8217;.</p>
+
+<p>On most of my forms I have basic javascript validation that says If field a is empty than alert saying field a is empty please fill it in and return false so the form doesn&#8217;t submit. However, all the bot has to do is fill in those required fields with garbage and then they put their html links/spam in my textbox or other field and submit away. But, I use this to my advantage. The bot says let me fill in all the text boxes available and hit submit.</p>
+
+<p>So I decided to create a hidden textbox that a normal user can&#8217;t see but a bot doesn&#8217;t know is hidden.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>(hidden: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">name=</span><span class="s">&quot;lamecaptcha&quot;</span> <span class="na">style=</span><span class="s">&quot;display:none;&quot;</span> <span class="nt">/&gt;</span> )
+</span><span class='line'>
+</span><span class='line'>(visible: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">name=</span><span class="s">&quot;text&quot;</span> <span class="nt">/&gt;</span> )
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(hidden: <input style="display:none;" name="lamecaptcha" type="text" /> )</p>
+
+<p>(visible: <input name="text" type="text" /> )</p>
+
+<p>Now when the form is submit all I have to do is make sure that the text box is empty and then I allow it to pass through:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;lamecaptcha&#39;</span><span class="p">])){</span>
+</span><span class='line'>       <span class="c1">//Do something because no human should fill a hidden text box</span>
+</span><span class='line'>       <span class="c1">//If the box was visible for some reason, they still shouldn&#39;t fill</span>
+</span><span class='line'>       <span class="c1">//any text box with out a label saying what should be in it</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>My &#8220;attacks&#8221; were few and far between but I have noticed that my database is no longer filled with garbage submissions and my clients are not complaining about getting spam from my server.
+I haven&#8217;t taken the time to figure it out but I would assume a lot of bots are also not running javascript, so another check might be to not allow form submission unless javascript is enabled (this can easily be defeated by a browser bot or there may be some way to fake out the check I don&#8217;t know) but it may be worth while to enhance the effectiveness of this.</p>
+
+<p>Again there are simple things like asking for 1+1 or type &#8220;here&#8221; in the box but I don&#8217;t want to make my users do more work because of the a-holes out there, what we need to do is make it more difficult for them. People spend so much time sifting through the spam and garbage it is discusting. Please share with me any ways you have created zero interaction captcha, I think as a service provider bogging down the user is the wrong way to go, and I&#8217;m suprised to see CAPTCHA systems become more difficult for the user than the bot.</p>
+
+<p>-Ak</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paul 'aknosis' Giberson</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-17T21:42:54-07:00" pubdate data-updated="true">Apr 17<span>th</span>, 2009</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://aknosis.com/2009/04/17/zero-user-interaction-captcha/" data-via="aknosis" data-counturl="http://aknosis.com/2009/04/17/zero-user-interaction-captcha/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2009/03/11/new-host/" title="Previous Post: New Host">&laquo; New Host</a>
+      
+      
+        <a class="basic-alignment right" href="/2009/05/14/managing-linux-processes/" title="Next Post: Quick Tip: Managing Linux Processes">Quick Tip: Managing Linux Processes &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/06/14/php-basics-phps-list/">PHP Basics: php's list()</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/10/quick-tip-rawurlencode-in-twig/">Quick Tip: rawurlencode in Twig</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/01/18/quicktip-read-from-stdin-in-php/">Quicktip: Read from stdin in PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/28/quicktip-add-conditionals-in-a-sql-where-clause/">Quicktip: Add conditionals in a WHERE clause</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/07/github-gist-shortcode-wordpress-plugin-update/">GitHub Gist Shortcode Wordpress Plugin Update</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/aknosis">@aknosis</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'aknosis',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("aknosis", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/aknosis" class="twitter-follow-button" data-show-count="false">Follow @aknosis</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Paul 'aknosis' Giberson -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'aknosis';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://aknosis.com/2009/04/17/zero-user-interaction-captcha/';
+        var disqus_url = 'http://aknosis.com/2009/04/17/zero-user-interaction-captcha/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
