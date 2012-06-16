@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Programming | aknosis.com]]></title>
-  <link href="http://aknosis.github.com/blog/categories/programming/atom.xml" rel="self"/>
-  <link href="http://aknosis.github.com/"/>
-  <updated>2012-06-16T01:29:58-07:00</updated>
-  <id>http://aknosis.github.com/</id>
+  <link href="http://aknosis.com/blog/categories/programming/atom.xml" rel="self"/>
+  <link href="http://aknosis.com/"/>
+  <updated>2012-06-16T01:33:21-07:00</updated>
+  <id>http://aknosis.com/</id>
   <author>
     <name><![CDATA[Paul 'aknosis' Giberson]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[PHP Basics: php's list()]]></title>
-    <link href="http://aknosis.github.com/2012/06/14/php-basics-phps-list/"/>
+    <link href="http://aknosis.com/2012/06/14/php-basics-phps-list/"/>
     <updated>2012-06-14T19:33:00-07:00</updated>
-    <id>http://aknosis.github.com/2012/06/14/php-basics-phps-list</id>
+    <id>http://aknosis.com/2012/06/14/php-basics-phps-list</id>
     <content type="html"><![CDATA[<p>If you haven't used <a href="http://php.net/manual/en/function.list.php">list()</a> before, consider it a dead simple way to map from a numerically indexed
 array to any number of variables.</p>
 
@@ -103,9 +103,9 @@ array to any number of variables.</p>
   
   <entry>
     <title type="html"><![CDATA[Quicktip: Read from stdin in PHP]]></title>
-    <link href="http://aknosis.github.com/2012/01/18/quicktip-read-from-stdin-in-php/"/>
+    <link href="http://aknosis.com/2012/01/18/quicktip-read-from-stdin-in-php/"/>
     <updated>2012-01-18T17:06:36-07:00</updated>
-    <id>http://aknosis.github.com/2012/01/18/quicktip-read-from-stdin-in-php</id>
+    <id>http://aknosis.com/2012/01/18/quicktip-read-from-stdin-in-php</id>
     <content type="html"><![CDATA[<p><div><script src='https://gist.github.com/1636629.js?file='></script>
 <noscript><pre><code>&lt;?php
 /**
@@ -128,9 +128,9 @@ function prompt($msg){
   
   <entry>
     <title type="html"><![CDATA[Php: (strpos) Search for text in a string]]></title>
-    <link href="http://aknosis.github.com/2009/02/28/php-strpos-search-for-text-in-a-string/"/>
+    <link href="http://aknosis.com/2009/02/28/php-strpos-search-for-text-in-a-string/"/>
     <updated>2009-02-28T02:08:20-07:00</updated>
-    <id>http://aknosis.github.com/2009/02/28/php-strpos-search-for-text-in-a-string</id>
+    <id>http://aknosis.com/2009/02/28/php-strpos-search-for-text-in-a-string</id>
     <content type="html"><![CDATA[<p>If you want to search for text inside a string but don't need fancyness of regex, here lies strpos.</p>
 
 <p>I see a lot of posts online about people confused how strpos works and how to use it for searching for text in a string properly. First thing to note is that strpos() returns the index of the location of the string (not true if the string exists in part of the testing string).  So:</p>
