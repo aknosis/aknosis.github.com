@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Quick Tips | aknosis.com]]></title>
   <link href="http://aknosis.com/blog/categories/quick-tips/atom.xml" rel="self"/>
   <link href="http://aknosis.com/"/>
-  <updated>2012-06-16T01:33:21-07:00</updated>
+  <updated>2012-10-02T23:16:31-07:00</updated>
   <id>http://aknosis.com/</id>
   <author>
     <name><![CDATA[Paul 'aknosis' Giberson]]></name>
@@ -12,94 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[PHP Basics: php's list()]]></title>
-    <link href="http://aknosis.com/2012/06/14/php-basics-phps-list/"/>
-    <updated>2012-06-14T19:33:00-07:00</updated>
-    <id>http://aknosis.com/2012/06/14/php-basics-phps-list</id>
-    <content type="html"><![CDATA[<p>If you haven't used <a href="http://php.net/manual/en/function.list.php">list()</a> before, consider it a dead simple way to map from a numerically indexed
-array to any number of variables.</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;&amp;lt;?php</span>
-</span><span class='line'><span class="x">$myArray = array(&#39;red&#39;,&#39;blue&#39;,&#39;yellow&#39;);&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;list($red,$blue,$yellow) = $myArray;&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;//yields:</span>
-</span><span class='line'><span class="x">// $red = &#39;red&#39;</span>
-</span><span class='line'><span class="x">// $blue = &#39;blue&#39;</span>
-</span><span class='line'><span class="x">// $yellow = &#39;yellow&#39;&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>Consider sometimes that you only want the nth value of the array:</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;&amp;lt;?php</span>
-</span><span class='line'><span class="x">$myArray = array(&#39;red&#39;,&#39;blue&#39;,&#39;yellow&#39;,&#39;green&#39;,&#39;white&#39;);&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;//I used to do:</span>
-</span><span class='line'><span class="x">list($notused,$notused,$notused,$green,$white) = $myArray;&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;//yields:</span>
-</span><span class='line'><span class="x">//$notused = &#39;yellow&#39;</span>
-</span><span class='line'><span class="x">//$green = &#39;green&#39;</span>
-</span><span class='line'><span class="x">//$white = &#39;white&#39;&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;//but I found a trick where you don&#39;t</span>
-</span><span class='line'><span class="x">//have to provide any variables at all&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;list(,,,,$green,$white) = $myArray;&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;//yields:</span>
-</span><span class='line'><span class="x">//$green = &#39;green&#39;</span>
-</span><span class='line'><span class="x">//$white = &#39;white&#39;&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Quick Tip: rawurlencode in Twig]]></title>

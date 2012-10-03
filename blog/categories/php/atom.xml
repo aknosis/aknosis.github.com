@@ -4,7 +4,7 @@
   <title><![CDATA[Category: php | aknosis.com]]></title>
   <link href="http://aknosis.com/blog/categories/php/atom.xml" rel="self"/>
   <link href="http://aknosis.com/"/>
-  <updated>2012-06-16T01:33:21-07:00</updated>
+  <updated>2012-10-02T23:16:31-07:00</updated>
   <id>http://aknosis.com/</id>
   <author>
     <name><![CDATA[Paul 'aknosis' Giberson]]></name>
@@ -14,42 +14,47 @@
 
   
   <entry>
-    <title type="html"><![CDATA[PHP Basics: php's list()]]></title>
-    <link href="http://aknosis.com/2012/06/14/php-basics-phps-list/"/>
-    <updated>2012-06-14T19:33:00-07:00</updated>
-    <id>http://aknosis.com/2012/06/14/php-basics-phps-list</id>
-    <content type="html"><![CDATA[<p>If you haven't used <a href="http://php.net/manual/en/function.list.php">list()</a> before, consider it a dead simple way to map from a numerically indexed
-array to any number of variables.</p>
+    <title type="html"><![CDATA[Twig cache file permissions]]></title>
+    <link href="http://aknosis.com/2012/10/02/twig-cache-file-permissions/"/>
+    <updated>2012-10-02T20:29:00-07:00</updated>
+    <id>http://aknosis.com/2012/10/02/twig-cache-file-permissions</id>
+    <content type="html"><![CDATA[<p>If you are having problems with the permissions of the cache files that <a href="http://twig.sensiolabs.org/">Twig</a>
+compiles this may point you in the right direction.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;&amp;lt;?php</span>
-</span><span class='line'><span class="x">$myArray = array(&#39;red&#39;,&#39;blue&#39;,&#39;yellow&#39;);&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;list($red,$blue,$yellow) = $myArray;&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;//yields:</span>
-</span><span class='line'><span class="x">// $red = &#39;red&#39;</span>
-</span><span class='line'><span class="x">// $blue = &#39;blue&#39;</span>
-</span><span class='line'><span class="x">// $yellow = &#39;yellow&#39;&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>To bring you up to speed, Twig will compile Twig templates into native php once
+parsed, this ensures that they are rendered as fast as possible.</p>
 
-<p>Consider sometimes that you only want the nth value of the array:</p>
+<p>My specific use case is that some templates are compiled on the command line
+as a different user than apache which compiles them from web requests. When
+generating templates from various users I ran into permissions where the cli
+user couldn't create cache files in folders that were previously created by
+Apache. The cli user and Apache both are in the same group so I just needed to
+make sure that all folders and files (for clearing the cache) are owned by the
+common group, which is easier said than done.</p>
+
+<!--more-->
+
+
+<h2>Cache Files and setgid</h2>
+
+<p>I could never get Twig to work the way I <del>needed</del> expected it to.
+After much trial and error I found out that my problem lied deep inside Twig.
+When Twig writes out cache files it creates two sub folders e.g. cachedir/ab/cd/abcdefg.php.
+I have to ensure that these new folders and files in them get created with the common group
+owning them. I accomplish this using the <a href="http://en.wikipedia.org/wiki/Setgid">setgid</a> bit on
+the parent cache directory (chmod 2775 or chmod g+s). Now thinking my problems are solved I see what
+the real results of my perm change are... New directories were still not being created by the
+common group, everything was owned by the apache group still, and even then the directories
+weren't group writable.</p>
+
+<h2>Digging into the source</h2>
+
+<p>The answer is always in the source right? Taking a look into the<br/>
+<a href="https://github.com/fabpot/Twig/blob/master/lib/Twig/Environment.php#L1082">source</a> (extracted below)
+you have to believe that the directories would be created as 0777 (globally writeable, readable and
+executable) but that would be too easy. It turns out that Apache was creating directories as 0644 and
+still owned by apache:apache. It got more strange when seeing that cache files created by my cli user
+were indeed created as cli:common rather than cli:cli.</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -74,30 +79,120 @@ array to any number of variables.</p>
 <span class='line-number'>21</span>
 <span class='line-number'>22</span>
 <span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
 </pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&lt;/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;&amp;lt;?php</span>
-</span><span class='line'><span class="x">$myArray = array(&#39;red&#39;,&#39;blue&#39;,&#39;yellow&#39;,&#39;green&#39;,&#39;white&#39;);&lt;/p&gt;</span>
+</span><span class='line'><span class="x">&lt;p&gt;&amp;lt;?php&lt;/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;//I used to do:</span>
-</span><span class='line'><span class="x">list($notused,$notused,$notused,$green,$white) = $myArray;&lt;/p&gt;</span>
+</span><span class='line'><span class="x">&lt;pre&gt;&lt;code&gt;protected function writeCacheFile($file, $content)</span>
+</span><span class='line'><span class="x">{</span>
+</span><span class='line'><span class="x">    $dir = dirname($file);</span>
+</span><span class='line'><span class="x">    if (!is_dir($dir)) {</span>
+</span><span class='line'><span class="x">        if (false === @mkdir($dir, 0777, true) &amp;amp;&amp;amp; !is_dir($dir)) {</span>
+</span><span class='line'><span class="x">            throw new RuntimeException(sprintf(&quot;Unable to create the cache directory (%s).&quot;, $dir));</span>
+</span><span class='line'><span class="x">        }</span>
+</span><span class='line'><span class="x">    } elseif (!is_writable($dir)) {</span>
+</span><span class='line'><span class="x">        throw new RuntimeException(sprintf(&quot;Unable to write in the cache directory (%s).&quot;, $dir));</span>
+</span><span class='line'><span class="x">    }</span>
 </span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;//yields:</span>
-</span><span class='line'><span class="x">//$notused = &#39;yellow&#39;</span>
-</span><span class='line'><span class="x">//$green = &#39;green&#39;</span>
-</span><span class='line'><span class="x">//$white = &#39;white&#39;&lt;/p&gt;</span>
+</span><span class='line'><span class="x">    $tmpFile = tempnam(dirname($file), basename($file));</span>
+</span><span class='line'><span class="x">    if (false !== @file_put_contents($tmpFile, $content)) {</span>
+</span><span class='line'><span class="x">        // rename does not work on Win32 before 5.2.6</span>
+</span><span class='line'><span class="x">        if (@rename($tmpFile, $file) || (@copy($tmpFile, $file) &amp;amp;&amp;amp; unlink($tmpFile))) {</span>
+</span><span class='line'><span class="x">            @chmod($file, 0644);</span>
 </span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;//but I found a trick where you don&#39;t</span>
-</span><span class='line'><span class="x">//have to provide any variables at all&lt;/p&gt;</span>
+</span><span class='line'><span class="x">            return;</span>
+</span><span class='line'><span class="x">        }</span>
+</span><span class='line'><span class="x">    }</span>
 </span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;list(,,,,$green,$white) = $myArray;&lt;/p&gt;</span>
+</span><span class='line'><span class="x">    throw new Twig_Error_Runtime(sprintf(&#39;Failed to write cache file &quot;%s&quot;.&#39;, $file));</span>
+</span><span class='line'><span class="x">}</span>
+</span><span class='line'><span class="x">&lt;/code&gt;&lt;/pre&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;//yields:</span>
-</span><span class='line'><span class="x">//$green = &#39;green&#39;</span>
-</span><span class='line'><span class="x">//$white = &#39;white&#39;&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="x">&lt;p&gt;</span>
+</span><span class='line'><span class="x">&lt;p&gt;?&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>umask</h2>
+
+<p>After a fair amount of googling it turns out that Apache runs with a <a href="http://en.wikipedia.org/wiki/Umask">umask</a>
+of 0022 preventing it from creating files and folders that are writable by a group other than its own. The
+cli user has a umask of 0002, allowing it to create a file that is not owned by itself. So even though
+Twig tells php to create the directory with the 0777 permission it was effectively creating it as 0644 when
+running from Apache. If umask is still boggling you, read this <a href="http://www.linuxnix.com/2011/12/umask-define-linuxunix.html">good explanation of umask</a>.</p>
+
+<h2>Lord love some object oriented programming</h2>
+
+<p>After hours of wrapping my brain around the funk that was the umask, setgid, and permissions in general, I came up
+with this easy patch that allows me to have much greater control of the cache file creation.</p>
+
+<p>The code basically changes the umask to that of the cli user (0002) and proceeds to create the directory before
+Twig tries to do it. Then I call the function I overrode (the one in the above code block ) that creates my cached
+template file. I then take that cache file and set it to 775 so that it is readable, writable, and executable by the
+user and group shared amongst apache and the cli user.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="x">&amp;lt;?php</span>
+</span><span class='line'><span class="x">class Aknosis_Twig_Environment extends Twig_Environment {&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;pre&gt;&lt;code&gt;/**</span>
+</span><span class='line'><span class="x"> * This exists so template cache files use the same</span>
+</span><span class='line'><span class="x"> * group between apache and cli</span>
+</span><span class='line'><span class="x"> */</span>
+</span><span class='line'><span class="x">protected function writeCacheFile($file, $content){</span>
+</span><span class='line'><span class="x">    if (!is_dir(dirname($file))) {</span>
+</span><span class='line'><span class="x">        $old = umask(0002);</span>
+</span><span class='line'><span class="x">        mkdir(dirname($file),0777,true);</span>
+</span><span class='line'><span class="x">        umask($old);</span>
+</span><span class='line'><span class="x">    }</span>
+</span><span class='line'><span class="x">    parent::writeCacheFile($file, $content);</span>
+</span><span class='line'><span class="x">    chmod($file,0775);</span>
+</span><span class='line'><span class="x">}</span>
+</span><span class='line'><span class="x">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;}</span>
+</span><span class='line'><span class="x">?&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>So now in my code I am calling  <code>new Aknosis_Twig_Environment($etc);</code> instead of <code>new Twig_Environment($etc);</code></p>
+
+<h3>Side Note</h3>
+
+<p>In the time it has taken me to write this post, there was an
+<a href="https://github.com/fabpot/Twig/issues/749">issue</a> that was
+solved in regards to the umask. This is a similar issue to what I am
+trying to solve here, but not similar enough to solve my problem.
+Basically this user was saying that creating the file blindly as 0644
+is incorrect and that we should apply the umask for the cache
+file. The <a href="https://github.com/fabpot/Twig/commit/d4511d02b45725a56c8cc49127244bca640c9d13">fix</a>
+however, does not solve my problem, it only applies the umask for the cache file writing,
+not the folder. As it stands now I still have this manual override in place.</p>
+
+<p>I have to assume that my situation isn't 100% unique, if you need to allow access to compiled template folder by more than one single user the code above should work, or get you pointed in the correct direction.</p>
 ]]></content>
   </entry>
   

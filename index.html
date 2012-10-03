@@ -9,12 +9,8 @@
   <meta name="author" content="Paul 'aknosis' Giberson">
 
   
-  <meta name="description" content="If you haven&#8217;t used list() before, consider it a dead simple way to map from a numerically indexed
-array to any number of variables. 1
-2
-3
-4
-5 &hellip;">
+  <meta name="description" content="If you are having problems with the permissions of the cache files that Twig
+compiles this may point you in the right direction. To bring you up to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -87,7 +83,7 @@ array to any number of variables. 1
       
   <header>
     
-      <h1 class="entry-title"><a href="/2012/06/14/php-basics-phps-list/">PHP Basics: Php&#8217;s List()</a></h1>
+      <h1 class="entry-title"><a href="/2012/10/02/twig-cache-file-permissions/">Twig Cache File Permissions</a></h1>
     
     
       <p class="meta">
@@ -103,85 +99,35 @@ array to any number of variables. 1
   
 
 
-<time datetime="2012-06-14T19:33:00-07:00" pubdate data-updated="true">Jun 14<span>th</span>, 2012</time>
+<time datetime="2012-10-02T20:29:00-07:00" pubdate data-updated="true">Oct 2<span>nd</span>, 2012</time>
         
-         | <a href="/2012/06/14/php-basics-phps-list/#disqus_thread">Comments</a>
+         | <a href="/2012/10/02/twig-cache-file-permissions/#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>If you haven&#8217;t used <a href="http://php.net/manual/en/function.list.php">list()</a> before, consider it a dead simple way to map from a numerically indexed
-array to any number of variables.</p>
+  <div class="entry-content"><p>If you are having problems with the permissions of the cache files that <a href="http://twig.sensiolabs.org/">Twig</a>
+compiles this may point you in the right direction.</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
-</span><span class='line'><span class="nv">$myArray</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;yellow&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">list</span><span class="p">(</span><span class="nv">$red</span><span class="p">,</span><span class="nv">$blue</span><span class="p">,</span><span class="nv">$yellow</span><span class="p">)</span> <span class="o">=</span> <span class="nv">$myArray</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//yields:</span>
-</span><span class='line'><span class="c1">// $red = &#39;red&#39;</span>
-</span><span class='line'><span class="c1">// $blue = &#39;blue&#39;</span>
-</span><span class='line'><span class="c1">// $yellow = &#39;yellow&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>To bring you up to speed, Twig will compile Twig templates into native php once
+parsed, this ensures that they are rendered as fast as possible.</p>
 
-
-<p>Consider sometimes that you only want the nth value of the array:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
-</span><span class='line'><span class="nv">$myArray</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;white&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//I used to do:</span>
-</span><span class='line'><span class="k">list</span><span class="p">(</span><span class="nv">$notused</span><span class="p">,</span><span class="nv">$notused</span><span class="p">,</span><span class="nv">$notused</span><span class="p">,</span><span class="nv">$green</span><span class="p">,</span><span class="nv">$white</span><span class="p">)</span> <span class="o">=</span> <span class="nv">$myArray</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//yields:</span>
-</span><span class='line'><span class="c1">//$notused = &#39;yellow&#39;</span>
-</span><span class='line'><span class="c1">//$green = &#39;green&#39;</span>
-</span><span class='line'><span class="c1">//$white = &#39;white&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//but I found a trick where you don&#39;t </span>
-</span><span class='line'><span class="c1">//have to provide any variables at all</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">list</span><span class="p">(,,,,</span><span class="nv">$green</span><span class="p">,</span><span class="nv">$white</span><span class="p">)</span> <span class="o">=</span> <span class="nv">$myArray</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//yields:</span>
-</span><span class='line'><span class="c1">//$green = &#39;green&#39;</span>
-</span><span class='line'><span class="c1">//$white = &#39;white&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
+<p>My specific use case is that some templates are compiled on the command line
+as a different user than apache which compiles them from web requests. When
+generating templates from various users I ran into permissions where the cli
+user couldn&#8217;t create cache files in folders that were previously created by
+Apache. The cli user and Apache both are in the same group so I just needed to
+make sure that all folders and files (for clearing the cache) are owned by the
+common group, which is easier said than done.</p>
 
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/2012/10/02/twig-cache-file-permissions/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -403,266 +349,6 @@ SELECT * FROM table
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/09/02/quicktip-simple-file-based-cache-mechanism-in-php/">Quicktip: Simple File Based Cache Mechanism in PHP</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-09-02T10:32:16-07:00" pubdate data-updated="true">Sep 2<span>nd</span>, 2011</time>
-        
-         | <a href="/2011/09/02/quicktip-simple-file-based-cache-mechanism-in-php/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Simple, yet effective enough, this is all the code I used to create caching for a feed retrieval to speed up subsequent requests.</p>
-
-<p>Enjoy!</p>
-
-<div><script src='https://gist.github.com/1189222.js?file='></script>
-<noscript><pre><code>&lt;?php
-/**
- * @param string $uniqID - Anything that would be unique to what you are caching (url/database query) 
- * @param integer $expireSeconds - How old is too old that we refresh the cache
- */
-function _getFromCache($uniqID,$expireSeconds){
-    $uniq = '/&lt;path to your cache storage folder&gt;/'.md5($uniqID);
-    if(file_exists($uniq) &amp;&amp; time() - filemtime($uniq) &lt;= $expireSeconds){
-        return '&lt;process cached file&gt;($uniq)';
-    }
-    $somethingToCache = '&lt;standard execution to get item&gt;($uniqID)';
-    file_put_contents($uniq,$somethingToCache); //You will want to implement __toString() if this is an object or maybe you can just serialize it
-    return $somethingToCache;
-}</code></pre></noscript></div>
-
-
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/07/17/using-jquery-to-rewrite-relative-urls-to-absolute-urls-revisited/">Using jQuery to Rewrite Relative Urls to Absolute Urls - [Revisited]</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-07-17T00:38:03-07:00" pubdate data-updated="true">Jul 17<span>th</span>, 2011</time>
-        
-         | <a href="/2011/07/17/using-jquery-to-rewrite-relative-urls-to-absolute-urls-revisited/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>After scanning my site stats and realizing that an old post about <a title="Using jQuery to rewrite all relative urls" href="http://aknosis.com/2009/02/11/using-jquery-to-rewrite-all-relative-urls/">how to rewrite all the relative urls on a page with jQuery</a> was one of my most visited, I decided to review the code and noticed it could be improved. My knowledge of JavaScript and jQuery has improved immensely since that previous post and this revisit is an attempt to improve upon it.</p>
-
-<h4>Problem: Need to change all the relative urls on a page and replace with an absolute url.</h4>
-
-
-<p>Different from my other post I&#8217;m going to separate the concerns of this problem: 1 being selecting only the links that are relative and not inline or mailto: links; 2 modifying the href.</p>
-
-<h4>Selecting the links on a page</h4>
-
-
-<p>The jQuery standard $(&#8216;a&#8217;) will only solve half our problem because we only want links that are relative. There are several different methods we can use with jQuery to get exactly what you need, however first take into context what your page actually looks like. You may be able to save some time if your page has relatively few links, on the other hand if you have a page with hundreds of links you will need to chose your <a href="http://api.jquery.com/category/selectors/">selectors</a> wisely. To make the best and most informed decision, I suggest you test your various use cases @ <a href="http://jsperf.com/">http://jsperf.com/</a>.</p>
-
-<p>Here are three that I came up with:</p>
-
-<figure class='code'><figcaption><span>jQuery Selectors  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="s1">&#39;[href^=&quot;http&quot;],[href^=&quot;https&quot;],[href^=&quot;mailto:&quot;],[href^=&quot;#&quot;]&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a:not([href^=&quot;http:&quot;],[href^=&quot;https:&quot;],[href^=&quot;mailto:&quot;],[href^=&quot;#&quot;])&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a:not([href*=&quot;://&quot;],[href^=&quot;mailto:&quot;],[href^=&quot;#&quot;])&#39;</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2011/07/17/using-jquery-to-rewrite-relative-urls-to-absolute-urls-revisited/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/07/12/quicktip-random-string-in-unix/">Quicktip: Random String in Unix</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-07-12T15:07:11-07:00" pubdate data-updated="true">Jul 12<span>th</span>, 2011</time>
-        
-         | <a href="/2011/07/12/quicktip-random-string-in-unix/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div><script src='https://gist.github.com/1079084.js?file='></script>
-<noscript><pre><code>echo `&lt;/dev/urandom tr -dc A-Za-z0-9 | head -c8`</code></pre></noscript></div>
-
-
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/06/29/check-if-a-class-constant-exists-in-php/">Quicktip: Check if a Class Constant Exists in PHP</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-29T09:55:19-07:00" pubdate data-updated="true">Jun 29<span>th</span>, 2011</time>
-        
-         | <a href="/2011/06/29/check-if-a-class-constant-exists-in-php/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div><script src='https://gist.github.com/1054257.js?file='></script>
-<noscript><pre><code>&lt;?php
-if(defined('className::CONSTANT_NAME')){
-  //defined
-}else{
-  //not defined
-}</code></pre></noscript></div>
-
-
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/05/11/jquery-pluginifier-jquery-plugin-instantiator-boilerplate/">jQuery Pluginifier - Plugin Instantiator & Plugin Boilerplate</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-11T06:01:58-07:00" pubdate data-updated="true">May 11<span>th</span>, 2011</time>
-        
-         | <a href="/2011/05/11/jquery-pluginifier-jquery-plugin-instantiator-boilerplate/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>After coming across a recent blog post on <a href="http://stefangabos.ro/jquery/jquery-plugin-boilerplate/">jQuery Plugin Boilerplate</a> code it reminded me a few months back when I was looking at the best method for authoring plugins for use at work. After much googling and trial and error I finally came to grips with something and below is the end result.</p>
-
-<p>The code in the <a href="http://stefangabos.ro/jquery/jquery-plugin-boilerplate/">jQuery Plugin Boilerplate</a> blog post is very similar to the <a href="http://docs.jquery.com/Plugins/Authoring">plugin authoring page</a> in the jQuery Documentation. While they are both good resources, I think they favor single plugins and may potentially lead developers down a path of duplicate code. Similar to jQuery UI&#8217;s $.widget what I want to push here is a snippet of code that can transform your code into a &#8220;jQuery Plugin&#8221; (is there a real definition of this somewhere?).</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2011/05/11/jquery-pluginifier-jquery-plugin-instantiator-boilerplate/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -678,7 +364,7 @@ if(defined('className::CONSTANT_NAME')){
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/2012/06/14/php-basics-phps-list/">PHP Basics: php&#8217;s list()</a>
+        <a href="/2012/10/02/twig-cache-file-permissions/">Twig cache file permissions</a>
       </li>
     
       <li class="post">

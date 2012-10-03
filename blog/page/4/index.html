@@ -9,7 +9,7 @@
   <meta name="author" content="Paul 'aknosis' Giberson">
 
   
-  <meta name="description" content="This post has been revisited, see the newer version here. Problem: I have a template file that has all relative url&#8217;s for all the links and I &hellip;">
+  <meta name="description" content="Are you tired of manually running backups when you remember to? If you are running your own server, or have access to the shell and cron jobs this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,7 +82,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2009/02/11/using-jquery-to-rewrite-all-relative-urls/">Using jQuery to Rewrite All Relative Url&#8217;s</a></h1>
+      <h1 class="entry-title"><a href="/2009/10/25/automating-mysql-database-backups-on-the-command-line-via-mysqldump/">Automating MySQL Database Backups on the Command Line via Mysqldump</a></h1>
     
     
       <p class="meta">
@@ -98,38 +98,29 @@
   
 
 
-<time datetime="2009-02-11T00:16:30-07:00" pubdate data-updated="true">Feb 11<span>th</span>, 2009</time>
+<time datetime="2009-10-25T22:54:30-07:00" pubdate data-updated="true">Oct 25<span>th</span>, 2009</time>
         
-         | <a href="/2009/02/11/using-jquery-to-rewrite-all-relative-urls/#disqus_thread">Comments</a>
+         | <a href="/2009/10/25/automating-mysql-database-backups-on-the-command-line-via-mysqldump/#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h3><em>This post has been revisited, see the newer version <a title="Using jQuery to rewrite relative urls to absolute urls – [revisited]" href="http://aknosis.com/2011/07/17/using-jquery-to-rewrite-relative-urls-to-absolute-urls-revisited/">here</a>.</em></h3>
+  <div class="entry-content"><h2>Are you tired of manually running backups when you remember to?</h2>
 
 
-<p><strong>Problem:</strong></p>
+<p>If you are running your own server, or have access to the shell and cron jobs this tip is for you!</p>
 
-<p>I have a template file that has all relative url&#8217;s for all the links and I have this template on two different subdomains, one is used for processing and the other is for static files.
-When I display something on my processing server I want it to make all the links point the the static pages without modifying the template.</p>
+<p>First off for a better understanding of mysqldump check out the <a href="http://dev.mysql.com/doc/refman/5.0/en/mysqldump.html" target="_blank">MySQL reference manual</a>. All mysqldump really does is output the necessary queries to rebuild your database to the current state it is at when run.</p>
 
-<p><strong>Solution:</strong></p>
-
-<p>Use jQuery to parse all links and change to the proper domain.</p>
-
-<p><strong>Question:</strong></p>
-
-<p>Is there a better method that is automatic such as this? Or maybe a better way to write the jQuery as it stumped me to get it right for a bit.</p>
-
-<p>Code:</p>
+<p>First I&#8217;m going to create a test database and some tables as examples:</p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/2009/02/11/using-jquery-to-rewrite-all-relative-urls/">Read on &rarr;</a>
+      <a rel="full-article" href="/2009/10/25/automating-mysql-database-backups-on-the-command-line-via-mysqldump/">Read on &rarr;</a>
     </footer>
   
 
@@ -141,7 +132,7 @@ When I display something on my processing server I want it to make all the links
       
   <header>
     
-      <h1 class="entry-title"><a href="/2009/01/12/domain-name-search-engine-registration-mail-scam/">Hosting Performance</a></h1>
+      <h1 class="entry-title"><a href="/2009/10/22/apache-how-to-redirect-all-root-domain-traffic-to-www-subdomain/">Apache: How to Redirect All Root Domain Traffic to Www Subdomain</a></h1>
     
     
       <p class="meta">
@@ -157,20 +148,324 @@ When I display something on my processing server I want it to make all the links
   
 
 
-<time datetime="2009-01-12T23:07:34-07:00" pubdate data-updated="true">Jan 12<span>th</span>, 2009</time>
+<time datetime="2009-10-22T22:37:20-07:00" pubdate data-updated="true">Oct 22<span>nd</span>, 2009</time>
         
-         | <a href="/2009/01/12/domain-name-search-engine-registration-mail-scam/#disqus_thread">Comments</a>
+         | <a href="/2009/10/22/apache-how-to-redirect-all-root-domain-traffic-to-www-subdomain/#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>So as I was making some posts and doing some backend work within wordpress I noticed some really slow requests&#8230; If you browse my blog what do you think about the performance? I hadn&#8217;t had complaints before and I wonder if something is going on right now (shared hosting&#8230;)</p>
+  <div class="entry-content"><p>Problem: Traffic comes to http://aknosis.com/something/ but they really need to go to http://www.aknosis.com/something/.</p>
 
-<p>Amidst the fray I&#8217;m thinking more and more about hosting myself. I&#8217;ve migrated one of my clients partially to this host so I could use php 5+ but am reluctant to move them completely here if the performance isn&#8217;t really there.</p>
+<p>Solution: 301 Redirect via Apache with mod_rewrite.</p>
 
-<p>I like the prices available @ <a href="http://www.slicehost.com/" target="_blank">slicehost</a>. It will require me to secure &amp; me to monitor etc etc but it is probably worth the performance increase and unshared hosting.</p>
+<p>Simple easy addition to your httpd.conf or .htaccess, I placed mine right above my wordpress mod_rewrite rules. If you are using .htaccess just dump it in that file above the wordpress redirect, if you having your rewrite rules in your httpd.conf then it needs to go inside the  container:</p>
+
+<pre>&lt;Directory /www/mydir/&gt;
+        RewriteEngine On
+        RewriteCond %{HTTP_HOST} !^www\.aknosis\.com$ [NC]
+        RewriteRule ^(.*)$ http://www.aknosis.com/$1 [R=301,L]
+#Wordpress Here
+        RewriteBase /
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule . /index.php [L]
+&lt;/Directory&gt;
+</pre>
+
+
+<p>Breakdown:</p>
+
+<pre>RewriteCond %{HTTP_HOST} !^www\.aknosis\.com$ [NC]
+If the HTTP_HOST header doesn't equal www.aknosis.com then :
+RewriteRule ^(.*)$ http://www.aknosis.com/$1 [R=301,L]
+Use the rewrite rule to push the request to http://www.aknosis.com/
+^ - Beginning of request uri
+() - Means group this into $1
+$ - End of request uri
+http://www.aknosis.com/$1 - Rewrite to this ($1 = the request uri)
+[R=301 - Use a 301 Redirect
+,L] - Make this the final rewrite rule and go</pre>
+
+
+<p>Try it out, go here (<a href="http://aknosis.com/">http://aknosis.com/</a>) and you end up here (<a href="http://www.aknosis.com/">http://www.aknosis.com/</a>). You can see the actual redirect in firebug&#8217;s net tab:</p>
+
+<p style="text-align: center;"><a href="/images/2009/10/firebug-redirect.jpg"><img class="size-full wp-image-272 aligncenter" title="firebug-redirect" src="/images/2009/10/firebug-redirect.jpg" alt="firebug-redirect" width="619" height="112" /></a></p>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/10/19/a-ton-of-web-developer-cheat-sheets/">A Ton of Web Developer Cheat Sheets</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-19T22:06:57-07:00" pubdate data-updated="true">Oct 19<span>th</span>, 2009</time>
+        
+         | <a href="/2009/10/19/a-ton-of-web-developer-cheat-sheets/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Stop digging in your notebook for all your hand written notes, or jumping around your My Computer, because anything you ever wanted it probably listed here: <a href="http://www.tripwiremagazine.com/tools/tools/55-seriously-useful-front-end-web-developer-cheat-sheets.html">http://www.tripwiremagazine.com/tools/tools/55-seriously-useful-front-end-web-developer-cheat-sheets.html</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/10/17/fun-with-jquery-checkboxes/">Fun With jQuery - Checkboxes!!!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-17T22:43:15-07:00" pubdate data-updated="true">Oct 17<span>th</span>, 2009</time>
+        
+         | <a href="/2009/10/17/fun-with-jquery-checkboxes/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+
+
+<script type="text/javascript">
+  $.noConflict();
+  // Code that uses other library's $ can follow here.
+</script>
+
+
+<p>Another day with jQuery, this time we are talking about checkboxes.</p>
+
+<p>Just like I stated in my <a href="/2009/10/15/more-jquery-fun-auto-populating-a-select-box/">previous post</a> about select boxes, jQuery and checkbox <em>integration</em>, if you will, isn&#8217;t cut and dry but damn near close. So how can jQuery assist with checkboxes? Lots of ways, here are a few examples to keep you entertained.</p>
+
+<p>Try and manually select a checkbox and it will still toggle them correctly (turn them off it they are on and vice versa).</p>
+
+<script>
+function toggleChecks(){ jQuery('input[type=checkbox]').each( function(){ if(jQuery(this).is(':checked')){ jQuery(this).removeAttr('checked'); }else{ jQuery(this).attr('checked',true); } }); }
+</script>
+
+
+<table border="0">
+<tbody>
+<tr>
+<td rowspan="2"><input class="button" onclick="toggleChecks();" type="button" value="Toggle Checks" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+</tr>
+<tr>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+<td><input class="cb" type="checkbox" /></td>
+</tr>
+</tbody></table>
+
+
+<h3>jQuery selector for checkboxes</h3>
+
+
+<p>Just like any input you can choose your checkbox(es) with any standard selector.</p>
+
+<ul>
+    <li><strong>By Class</strong>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">//Selector</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.cb_class&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- Input Html --&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">class=</span><span class="s">&quot;cb_class&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</li>
+    <li><strong>By Id</strong>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Selector</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#cb&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- Input Html --&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">id=</span><span class="s">&quot;cb&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</li>
+<li><strong>By tag and attribute</strong>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Selector</span>
+</span><span class='line'> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;input[type=checkbox]&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="c1">//Note: This would select all checkboxes</span>
+</span><span class='line'><span class="c1">//(same code in the Toggle Checks button above)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- Input Html --&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</li>
+<li><strong>By tag and attribute</strong>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Selector</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;input[name=checkBoxname]&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- Input Html --&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">name=</span><span class="s">&quot;checkBoxname&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2009/10/17/fun-with-jquery-checkboxes/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/10/15/more-jquery-fun-auto-populating-a-select-box/">More jQuery Fun - Auto Populating a Select Box</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-15T23:10:28-07:00" pubdate data-updated="true">Oct 15<span>th</span>, 2009</time>
+        
+         | <a href="/2009/10/15/more-jquery-fun-auto-populating-a-select-box/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Note: This post was updated 8/2/2011 to include jsfiddle code snippets and better/smarter code overall. Enjoy!</h3>
+
+
+<p>Problem: You want to dynamically populate a select box and you don&#8217;t know how.</p>
+
+<p>Solution: Easy, I will show you.</p>
+
+<p>First off, I lied there is no built in way in jQuery (why?, I don&#8217;t know) to automatically populate a select box. But it actually is very easy. There are plenty of methods to accomplish this but I like to do it this was because utilizes the <a href="http://docs.sun.com/source/816-6408-10/option.htm">Option object</a> and it doesn&#8217;t require html string concatenation.</p>
+
+<h2>The basics</h2>
+
+
+<p>Example 1:</p>
+
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/NKQRe/embedded/result,js,html/light/"></iframe>
+
+
+<p>In this example I will populate the 2nd select box based on the value of the first one.</p>
+
+<p>Example 2:</p>
+
+<p>This time when I change something in the first sel, it does the changing of the second select box.</p>
+
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/5wRX9/embedded/result,js,html/light/"></iframe>
+
+
+
+
+<h3>What now?</h3>
+
+
+<p>There are many paths you can go down to make your select boxes dynamic, whether that is auto populating them, adding or removing single values, making them submit forms, submitting ajax calls to populate etc. etc. The key to making your life easier is to understand the way the select element is handled. Think of it as an array of element objects (which it is), at each index is an option and each option has text and a value.</p>
+
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/H7aGc/embedded/result,js,html/light/"></iframe>
+
+
+<p>Need help implementing a specific example? Just ask in a comment!</p>
 </div>
   
   
@@ -179,6 +474,8 @@ When I display something on my processing server I want it to make all the links
     </article>
   
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/5/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -193,7 +490,7 @@ When I display something on my processing server I want it to make all the links
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/2012/06/14/php-basics-phps-list/">PHP Basics: php&#8217;s list()</a>
+        <a href="/2012/10/02/twig-cache-file-permissions/">Twig cache file permissions</a>
       </li>
     
       <li class="post">
