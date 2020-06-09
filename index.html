@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fafafa">
   <link rel="stylesheet" href="raw/css.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 </head>
 <body>
   <div class="container">
@@ -26,17 +25,17 @@
             (aknosis)
           </li>
         </ul>
-        <ul class="links">
+        <ul id="links">
+          <li>
+            <a href="#index">
+              <i class="fas fa-home fa-fw"></i>
+              Home
+            </a>
+          </li>
           <li>
             <a href="#about">
               <i class="fas fa-lightbulb fa-fw"></i>
               About
-            </a>
-          </li>
-          <li>
-            <a href="https://www.resumonk.com/paulgiberson">
-              <i class="fas fa-link fa-fw"></i>
-              Résumé
             </a>
           </li>
           <li>
@@ -49,6 +48,12 @@
             <a href="#articles">
               <i class="fas fa-pencil-alt fa-fw"></i>
               Articles
+            </a>
+          </li>
+          <li>
+            <a href="https://www.resumonk.com/paulgiberson">
+              <i class="fas fa-link fa-fw"></i>
+              Résumé
             </a>
           </li>
           <li>
@@ -80,39 +85,75 @@
       <div class="banner banner-bottom">
       </div>
     </div>
-    <div class="canvas">
-      <p class="prominent">
-        Welcome!
-      </p>
-      <p>
-        I'm <b>Paul Giberson</b>, father, software developer, movie fan, and all around tech enthusiast. 
-      </p>
-      <p>
-        You can find me around the web on 
-        <a href="https://www.linkedin.com/in/paulgiberson">LinkedIn</a>, 
-        <a href="https://www.github.com/aknosis">GitHub</a>,
-        <a href="https://www.gitlab.com/aknosis">GitLab</a>,
-        <a href="https://stackoverflow.com/users/868321/aknosis">Stack Overflow</a>,
-        and
-        <a href="https://www.twitter.com/aknosis">Twitter</a>.
-      </p>
-      <p>
-        You can read more 
-        <a href="#about">about me</a>, 
-        <a href="https://www.resumonk.com/paulgiberson">view my resume</a>,
-        see some 
-        <a href="#projects">projects</a>, 
-        or read some
-        <a href="#articles">articles</a>
-        and
-        <a href="https://github.com/aknosis/aknosis.com">view the source</a>
-        of this site.
-      </p>
-      <!-- <p>
-        To showcase front end skills I wrote this page in raw HTML / CSS / JavaScript and Vue with SCSS. For the Vue.js version click 
-        <a href="vue.html">here.</a>
-      </p> -->
+    <div id="canvas">
+      <div id="loader">
+        <span class="fa-stack">
+          <i class="fas fa-circle fa-stack-2x"></i>
+          <i class="fas fa-cog fa-stack-1x fa-inverse fa-spin"></i>
+        </span>
+      </div>
     </div>
   </div>
+  <div id="index" class="hidden">
+    <h1>
+      Welcome!
+    </h1>
+    <p>
+      I'm <span class="prominent">-&gt;Paul Giberson&lt;-</span>, father, software developer, movie fan, pc gamer, and all around tech enthusiast. 
+    </p>
+    <p>
+      You can find me around the web on 
+      <a href="https://www.linkedin.com/in/paulgiberson">LinkedIn</a>, 
+      <a href="https://www.github.com/aknosis">GitHub</a>,
+      <a href="https://www.gitlab.com/aknosis">GitLab</a>,
+      <a href="https://stackoverflow.com/users/868321/aknosis">Stack Overflow</a>,
+      and
+      <a href="https://www.twitter.com/aknosis">Twitter</a>.
+    </p>
+    <p>
+      You can read more 
+      <a href="#about">about me</a>, 
+      <a href="https://www.resumonk.com/paulgiberson">view my resume</a>,
+      see some 
+      <a href="#projects">projects</a>, 
+      or read some
+      <a href="#articles">articles</a>
+      and
+      <a href="https://github.com/aknosis/aknosis.com">view the source</a>
+      of this site.
+    </p>
+    </div>
+    <div id="about" class="hidden">
+      <h1>
+        About
+      </h1>
+      <p>
+        I have always been a fan of technology. I can remember my family's first computer at 5 years old, an <a href="https://en.wikipedia.org/wiki/IBM_PCjr">IBM PCjr</a>. All I can recall with that computer is playing games that were inserted via cartridges.
+      </p>
+      <p>
+        As I got older I was exposed to more complex games that my Grandpa would play. 
+        Civilization, Railroad Tycoon, Sim City, Might and Magic https://en.wikipedia.org/wiki/Might_and_Magic
+        Silent Service https://en.wikipedia.org/wiki/Silent_Service_(video_game),
+        Eye of the Beholder.
+        https://en.wikipedia.org/wiki/Eye_of_the_Beholder_(video_game)
+
+        And probably a dozen others I can't remember.
+      </p>
+       . Growing up my friends had computers and we played computer games all the time. One of our favorite games was everquest, and online anymore RPG. I spent about a year after graduating high school not working much and playing a lot of your reques. After starting a full-time job I realize I didn't have much time to play the game, that's when I discovered an online marketplace where I could sell my account that I wasn't playing anymore. Turns out you could also sell items you found in game. On my off time I would play and sell items for some extra money, through this I learned basic HTML and listed items for sale with PayPal links on my cable isps shared hosting. 6 months or so later I started going to MCC and started working on my associates degree in web development. After graduating from MCC I didn't see the industry (naively)For web development/design so when I transferred to ASU I decided to work on my bachelor's in  computer system administration. After graduating ASU I started as a sister administrator at Celsius, slowly I transitioned into a developer and eventually wound up excelling so well that I became a full-time developer. I spent eight years at Celsius growing with the company from six employees to over 50 when they were acquired by our logic. I worked at higher logic for a year before realizing my desire to work in smaller companies and where my work can have larger impact. In 2018 I started work at a reload and have been here ever since. 
+    </div>
+  <div id="projects" class="hidden">
+    <h1>
+      Projects
+    </h1>
+    <p>
+      <a href="https://halaslabs.com">Halas Labs</a> - Pen name for housing projects. Eventually will become an LLC.
+      <a href="https://www.phpjobs.app">PHPJobs</a> - Job board exclusively aimed at showcasing the best PHP related jobs
+      <a href="https://www.uptimer.app">Uptimer</a> - Website Uptime Monitor
+    </p>
+    <h2>
+      <a href="https://www.bucketdefender.com">Bucket Defender</a> - Managed S3 Anti-Virus (Open Source)
+    </h2>
+  </div>
+  <script src="raw/js.js"></script>
 </body>
 </html>
